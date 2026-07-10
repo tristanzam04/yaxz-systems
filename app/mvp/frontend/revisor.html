@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaxz Systems · Revisor de Contratos con IA</title>
+<meta name="description" content="Sube un contrato (PDF, DOCX) y obtén análisis con IA en 30 segundos. Gratis con registro.">
+<meta name="theme-color" content="#0A192F">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A192F; --ink-2: #1E293B; --paper: #FFFFFF; --paper-2: #F8FAFC;
+    --accent: #0066FF; --accent-2: #3B82F6; --steel: #64748B; --line: #E2E8F0;
+    --ok: #0F766E; --warn: #D97706; --bad: #DC2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Inter', -apple-system, sans-serif; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body { min-height: 100vh; background: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; }
+  .btn { display: inline-block; padding: 12px 20px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .btn-primary { background: var(--ink); color: white; }
+  .btn-primary:hover:not(:disabled) { background: var(--accent); }
+  .btn-primary:disabled { background: var(--line); color: var(--steel); cursor: not-allowed; }
+  .btn-accent { background: var(--accent); color: white; }
+  .btn-accent:hover:not(:disabled) { background: var(--ink); }
+  .btn-accent:disabled { background: var(--line); color: var(--steel); cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-sm { padding: 8px 14px; font-size: 12px; }
+  .btn-lg { padding: 16px 28px; font-size: 15px; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); }
+  .nav-wrap { max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .logo img, .logo svg { width: 130px; height: auto; display: block; }
+  .nav-cta { display: flex; gap: 12px; align-items: center; font-size: 13px; }
+  .nav-cta .user { color: var(--ink-2); font-weight: 500; }
+  .nav-cta .user b { color: var(--ink); }
+  @media (max-width: 700px) { .nav-cta .user { display: none; } .logo img, .logo svg { width: 110px; } }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 24px 80px; }
+
+  /* AUTH */
+  .auth-card { max-width: 440px; margin: 60px auto; background: white; border: 1px solid var(--line); border-radius: 16px; padding: 32px; }
+  .auth-card h2 { font-size: 24px; margin-bottom: 4px; letter-spacing: -0.5px; }
+  .auth-card .sub { color: var(--steel); font-size: 13px; margin-bottom: 24px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input { width: 100%; padding: 11px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; background: var(--paper); }
+  .form-group input:focus { outline: none; border-color: var(--accent); background: white; }
+  .auth-switch { text-align: center; margin-top: 16px; font-size: 13px; color: var(--steel); }
+  .auth-switch a { color: var(--accent); cursor: pointer; font-weight: 600; }
+  .auth-error { background: rgba(184,42,42,0.08); border: 1px solid rgba(184,42,42,0.2); color: var(--bad); padding: 10px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 14px; }
+
+  /* HERO */
+  .hero { margin-bottom: 28px; }
+  .hero h1 { font-size: 32px; letter-spacing: -1px; margin-bottom: 6px; }
+  .hero p { color: var(--ink-2); font-size: 15px; max-width: 720px; }
+  .hero .badge { display: inline-block; font-size: 10px; font-weight: 700; color: var(--ok); background: rgba(45,122,79,0.1); padding: 4px 10px; border-radius: 99px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .card { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .card h3 { font-size: 16px; margin-bottom: 10px; }
+  .card .help { color: var(--steel); font-size: 12px; margin-bottom: 14px; line-height: 1.5; }
+
+  .usage-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding: 12px 14px; background: var(--paper-2); border-radius: 10px; }
+  .usage-bar .pips { display: flex; gap: 4px; }
+  .pip { width: 28px; height: 8px; background: var(--line); border-radius: 2px; }
+  .pip.used { background: var(--accent); }
+  .usage-bar.exceeded { background: rgba(184,42,42,0.08); }
+  .usage-bar .txt { font-size: 12px; color: var(--ink-2); }
+  .usage-bar .txt b { color: var(--ink); }
+
+  .dropzone { display: block; padding: 36px 20px; border: 2px dashed var(--line); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.15s; background: var(--paper); }
+  .dropzone:hover, .dropzone.dragover { border-color: var(--accent); background: rgba(255,92,40,0.04); }
+  .dropzone .ico { font-size: 40px; margin-bottom: 8px; opacity: 0.6; }
+  .dropzone .title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .dropzone .sub { color: var(--steel); font-size: 12px; }
+  .dropzone input { display: none; }
+  .file-info { background: var(--paper-2); padding: 10px 14px; border-radius: 8px; margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .file-info .name { flex: 1; font-weight: 500; }
+  .file-info .remove { color: var(--bad); cursor: pointer; font-weight: 700; }
+  .progress-bar { background: var(--paper-2); height: 4px; border-radius: 2px; overflow: hidden; margin-top: 12px; }
+  .progress-bar .fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.3s; }
+
+  /* Playbook container and premium styles */
+  .playbook-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background: var(--paper-2);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+  }
+  .playbook-container label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-2);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .playbook-select-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .playbook-select-wrapper select {
+    width: 100%;
+    padding: 12px 40px 12px 14px;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    background: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .playbook-select-wrapper select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 92, 40, 0.1);
+  }
+  .playbook-select-wrapper::after {
+    content: '▼';
+    font-size: 10px;
+    color: var(--steel);
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    pointer-events: none;
+  }
+  .playbook-textarea-wrapper textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 12px 14px;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    background: white;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.15s ease;
+  }
+  .playbook-textarea-wrapper textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 92, 40, 0.1);
+  }
+  .playbook-textarea-wrapper textarea::-webkit-scrollbar {
+    width: 8px;
+  }
+  .playbook-textarea-wrapper textarea::-webkit-scrollbar-track {
+    background: var(--paper);
+    border-radius: 8px;
+  }
+  .playbook-textarea-wrapper textarea::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 8px;
+  }
+  .playbook-textarea-wrapper textarea::-webkit-scrollbar-thumb:hover {
+    background: var(--steel);
+  }
+
+  .result-empty { text-align: center; padding: 50px 16px; color: var(--steel); }
+  .result-empty .ico { font-size: 48px; opacity: 0.3; margin-bottom: 12px; }
+  .result-empty h4 { color: var(--ink-2); font-size: 15px; margin-bottom: 6px; }
+  .result-empty p { font-size: 12px; }
+  .summary-box { background: var(--paper-2); padding: 14px; border-radius: 10px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .risk-score { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; padding: 14px; border-radius: 10px; }
+  .risk-score.low { background: rgba(45,122,79,0.08); border: 1px solid rgba(45,122,79,0.2); }
+  .risk-score.medium { background: rgba(199,119,0,0.08); border: 1px solid rgba(199,119,0,0.2); }
+  .risk-score.high { background: rgba(184,42,42,0.08); border: 1px solid rgba(184,42,42,0.2); }
+  .risk-score .num { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 700; line-height: 1; }
+  .risk-score.low .num { color: var(--ok); }
+  .risk-score.medium .num { color: var(--warn); }
+  .risk-score.high .num { color: var(--bad); }
+  .risk-score .lbl { font-size: 10px; color: var(--steel); text-transform: uppercase; letter-spacing: 1px; }
+  .risk-score .lbl b { color: var(--ink); display: block; font-size: 13px; margin-top: 2px; }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 16px; font-size: 11px; }
+  .stat-box { text-align: center; padding: 8px; background: var(--paper-2); border-radius: 6px; }
+  .stat-box .num { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; }
+  .stat-box .lbl { color: var(--steel); font-size: 10px; margin-top: 2px; }
+  .section-title { font-size: 12px; font-weight: 700; margin: 16px 0 8px; padding-bottom: 4px; border-bottom: 1px solid var(--line); text-transform: uppercase; letter-spacing: 0.5px; }
+  .clause-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .clause { padding: 10px; border-radius: 6px; background: var(--paper); border: 1px solid var(--line); border-left-width: 3px; }
+  .clause.risk-low { border-left-color: var(--ok); }
+  .clause.risk-medium { border-left-color: var(--warn); }
+  .clause.risk-high { border-left-color: var(--bad); }
+  .clause-head { display: flex; justify-content: space-between; align-items: start; gap: 6px; margin-bottom: 4px; }
+  .clause-name { font-weight: 600; font-size: 13px; }
+  .clause-snippet { font-size: 11px; color: var(--steel); font-style: italic; margin-bottom: 4px; padding: 4px 6px; background: white; border-radius: 3px; border-left: 2px solid var(--line); }
+  .clause-explain { font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+  .risk-tag { font-size: 9px; font-family: 'JetBrains Mono', monospace; padding: 2px 5px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; flex-shrink: 0; }
+  .risk-tag.r-low { background: rgba(45,122,79,0.15); color: var(--ok); }
+  .risk-tag.r-medium { background: rgba(199,119,0,0.15); color: var(--warn); }
+  .risk-tag.r-high { background: rgba(184,42,42,0.15); color: var(--bad); }
+  .red-flag { background: rgba(184,42,42,0.05); border-left: 3px solid var(--bad); padding: 10px; border-radius: 5px; margin-bottom: 6px; }
+  .red-flag.medium { background: rgba(199,119,0,0.05); border-left-color: var(--warn); }
+  .red-flag-title { font-weight: 600; font-size: 13px; color: var(--bad); margin-bottom: 3px; }
+  .red-flag.medium .red-flag-title { color: var(--warn); }
+  .red-flag-desc { font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+  .question-list { list-style: none; }
+  .question-list li { padding: 8px 10px; background: var(--paper-2); border-radius: 5px; margin-bottom: 5px; font-size: 12px; line-height: 1.4; }
+  .question-list li::before { content: '? '; color: var(--accent); font-weight: 700; }
+  .cta-block { background: var(--ink); color: white; padding: 20px; border-radius: 10px; margin-top: 16px; }
+  .cta-block h4 { color: white; font-size: 14px; margin-bottom: 4px; }
+  .cta-block p { color: rgba(255,255,255,0.8); font-size: 12px; margin-bottom: 10px; }
+  .cta-block .btn { background: var(--accent); }
+  .cta-block .btn:hover { background: white; color: var(--ink); }
+  .error-msg { background: rgba(184,42,42,0.1); border: 1px solid rgba(184,42,42,0.3); color: var(--bad); padding: 10px; border-radius: 6px; font-size: 12px; margin-top: 10px; }
+  .footer-note { text-align: center; margin-top: 24px; font-size: 10px; color: var(--steel); font-family: 'JetBrains Mono', monospace; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-wrap">
+    <a class="logo" href="index.html" aria-label="Yaxz Systems">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180" width="100%" height="100%">
+        <style>
+          .logo-container {
+            cursor: pointer;
+          }
+          .letter {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 76px;
+            font-weight: 900;
+            fill: #0A192F;
+            transition: fill 0.3s ease;
+          }
+          @keyframes wave {
+            0%, 100% {
+              transform: translateY(0);
+              fill: #0A192F;
+            }
+            50% {
+              transform: translateY(-12px);
+              fill: #0066FF;
+            }
+          }
+          .logo:hover .letter {
+            animation: wave 1.0s ease-in-out infinite;
+          }
+          .logo:hover .l-1 { animation-delay: 0.0s; }
+          .logo:hover .l-2 { animation-delay: 0.12s; }
+          .logo:hover .l-3 { animation-delay: 0.24s; }
+          .logo:hover .l-4 { animation-delay: 0.36s; }
+        </style>
+        <g class="logo-container">
+          <rect width="100%" height="100%" fill="transparent"/>
+          <text x="160" y="115" class="letter l-1">Y</text>
+          <text x="215" y="115" class="letter l-2">A</text>
+          <text x="275" y="115" class="letter l-3">X</text>
+          <text x="330" y="115" class="letter l-4">Z</text>
+        </g>
+      </svg>
+    </a>
+    <div class="nav-cta">
+      <div class="user" id="user-display"></div>
+      <button class="btn btn-sm btn-ghost hidden" id="logout-btn">Salir</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div id="auth-view" class="hidden">
+    <div class="auth-card">
+      <h2 id="auth-title">Gobernanza de Datos</h2>
+      <p class="sub" id="auth-sub">Acceso a auditorías de contratos. Límite de 3 análisis diarios.</p>
+      <div id="auth-msg"></div>
+      <form id="auth-form">
+        <div class="form-group hidden" id="name-group">
+          <label>Tu nombre</label>
+          <input type="text" id="auth-name" placeholder="¿Cómo te llamas?">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="auth-email" placeholder="tu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="auth-password" placeholder="Mínimo 6 caracteres" required minlength="6">
+        </div>
+        <button type="submit" class="btn btn-accent btn-lg" style="width:100%;" id="auth-submit">Crear cuenta</button>
+      </form>
+      <div class="auth-switch">
+        <span id="auth-switch-text">¿Ya tienes cuenta?</span>
+        <a id="auth-switch-link">Inicia sesión</a>
+      </div>
+      <div class="footer-note" style="margin-top: 16px;">
+        🔒 Gobernanza de datos estructurada: El procesamiento se realiza de extremo a extremo sin almacenamiento de documentos en servidores externos.
+      </div>
+    </div>
+  </div>
+
+  <div id="app-view" class="hidden">
+    <div class="hero">
+      <span class="badge">⚡ Yaxz Systems · Arquitectura de IA</span>
+      <h1>Gobernanza de Datos Contractuales</h1>
+      <p>Sube un documento contractual para identificar fricciones operativas y evaluar la trazabilidad del flujo de obligaciones. La auditoría toma menos de 30 segundos mediante modelos de IA avanzados y arquitectura de playbook.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>📄 Documento Principal</h3>
+        <p class="help">Procesamiento en memoria bajo gobernanza de datos absoluta.</p>
+
+        <div class="usage-bar" id="usage-bar">
+          <div class="pips" id="usage-pips"></div>
+          <div class="txt"><b id="usage-used">0</b> de <b id="usage-limit">3</b> análisis hoy</div>
+        </div>
+
+        <div class="playbook-container">
+          <label>📋 Arquitectura de Playbook</label>
+          <div class="playbook-select-wrapper">
+            <select id="playbook-select">
+              <option value="default">Revisión General (Riesgos Estándar)</option>
+              <option value="arrendamiento">Arrendamiento Inmobiliario (Protección Inquilino)</option>
+              <option value="servicios">Prestación de Servicios (Protección Proveedor)</option>
+              <option value="custom">Personalizado (Escribir mis propias directrices)</option>
+            </select>
+          </div>
+          <div id="playbook-custom-wrap" class="playbook-textarea-wrapper" style="display: none;">
+            <textarea id="playbook-text" placeholder="Define las directrices de arquitectura del playbook para evaluar la trazabilidad del flujo de obligaciones (ej: '1. El plazo de pago no debe exceder 30 días naturales.')..."></textarea>
+          </div>
+        </div>
+
+        <label class="dropzone" id="dropzone">
+          <div class="ico">📎</div>
+          <div class="title">Click o arrastra</div>
+          <div class="sub">PDF, DOCX · Máx 10 MB</div>
+          <input type="file" id="file-input" accept=".pdf,.docx,.txt">
+        </label>
+
+        <div id="file-info" class="file-info" style="display: none;">
+          <span>📄</span>
+          <span class="name" id="file-name"></span>
+          <span class="size" id="file-size" style="color: var(--steel); font-size: 11px;"></span>
+          <span class="remove" id="remove-file">✕</span>
+        </div>
+
+        <div id="progress" class="progress-bar" style="display: none;">
+          <div class="fill" id="progress-fill"></div>
+        </div>
+
+        <button id="analyze-btn" class="btn btn-accent btn-lg" style="width:100%; margin-top: 14px;" disabled>
+          Analizar contrato con IA →
+        </button>
+
+        <div id="error-msg" class="error-msg" style="display: none;"></div>
+      </div>
+
+      <div class="card" id="result-card">
+        <h3>🔍 Auditoría de Riesgos</h3>
+        <div class="result-empty" id="result-empty">
+          <div class="ico">📋</div>
+          <h4>Esperando Documento</h4>
+          <p>Sube un documento en PDF o Word. Aquí se desplegarán las fricciones operativas y la trazabilidad del flujo de obligaciones.</p>
+        </div>
+        <div id="result-content" style="display: none;"></div>
+      </div>
+    </div>
+
+    <div class="footer-note">Yaxz Systems · Gobernanza de datos estructurada e integraciones con IA.</div>
+  </div>
+</main>
+
+<script>
+const API_BASE = window.location.origin;
+const state = { user: null, token: null, usage: { used: 0, limit: 3, remaining: 3 } };
+const $ = (id) => document.getElementById(id);
+
+let authMode = 'register';
+function setAuthMode(mode) {
+  authMode = mode;
+  $('auth-title').textContent = mode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
+  $('auth-sub').textContent = mode === 'register' ? '3 análisis gratis por día. Sin tarjeta.' : 'Bienvenido de vuelta.';
+  $('auth-submit').textContent = mode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
+  $('name-group').classList.toggle('hidden', mode !== 'register');
+  $('auth-switch-text').textContent = mode === 'register' ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?';
+  $('auth-switch-link').textContent = mode === 'register' ? 'Inicia sesión' : 'Créala';
+  $('auth-msg').innerHTML = '';
+}
+$('auth-switch-link').onclick = () => setAuthMode(authMode === 'register' ? 'login' : 'register');
+
+$('auth-form').onsubmit = async (e) => {
+  e.preventDefault();
+  const email = $('auth-email').value.trim();
+  const password = $('auth-password').value;
+  const name = $('auth-name').value.trim();
+  const msg = $('auth-msg');
+  msg.innerHTML = '';
+  if (!email || !password) { msg.innerHTML = '<div class="auth-error">Email y contraseña son requeridos</div>'; return; }
+  try {
+    let resp;
+    if (authMode === 'register') {
+      if (!name) { msg.innerHTML = '<div class="auth-error">Tu nombre es requerido</div>'; return; }
+      resp = await fetch(`${API_BASE}/api/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password, name }) });
+    } else {
+      resp = await fetch(`${API_BASE}/api/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+    }
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.detail || 'Error');
+    state.token = data.token;
+    state.user = data.user;
+    localStorage.setItem('yaxz_token', data.token);
+    localStorage.setItem('yaxz_user', JSON.stringify(data.user));
+    showApp();
+  } catch (err) {
+    msg.innerHTML = `<div class="auth-error">${escapeHtml(err.message)}</div>`;
+  }
+};
+
+$('logout-btn').onclick = () => {
+  localStorage.removeItem('yaxz_token');
+  localStorage.removeItem('yaxz_user');
+  state.token = null;
+  state.user = null;
+  showAuth();
+};
+
+function showAuth() {
+  $('auth-view').classList.remove('hidden');
+  $('app-view').classList.add('hidden');
+  $('user-display').innerHTML = '';
+  $('logout-btn').classList.add('hidden');
+}
+function showApp() {
+  $('auth-view').classList.add('hidden');
+  $('app-view').classList.remove('hidden');
+  $('user-display').innerHTML = `<b>${escapeHtml(state.user.name || state.user.email)}</b>`;
+  $('logout-btn').classList.remove('hidden');
+  refreshUsage();
+}
+function escapeHtml(s) { return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function refreshUsage() {
+  try {
+    const r = await fetch(`${API_BASE}/api/usage`, { headers: { 'Authorization': state.token } });
+    if (r.status === 401) { showAuth(); return; }
+    const data = await r.json();
+    state.usage = data;
+    renderUsage();
+  } catch (e) { console.error('Usage error', e); }
+}
+function renderUsage() {
+  const { used, limit, remaining } = state.usage;
+  $('usage-used').textContent = used;
+  $('usage-limit').textContent = limit;
+  const pips = $('usage-pips');
+  pips.innerHTML = '';
+  for (let i = 0; i < limit; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'pip' + (i < used ? ' used' : '');
+    pips.appendChild(pip);
+  }
+  $('usage-bar').classList.toggle('exceeded', remaining === 0);
+  $('analyze-btn').disabled = remaining === 0;
+  if (remaining === 0) $('analyze-btn').textContent = 'Límite alcanzado · Vuelve mañana';
+}
+
+const PLAYBOOK_TEMPLATES = {
+  default: '',
+  arrendamiento: `1. La jurisdicción aplicable debe ser la Ciudad de México.
+2. El incremento anual de la renta no debe exceder el porcentaje de inflación oficial (IPC).
+3. El arrendatario no debe ser responsable por daños estructurales ni por vicios ocultos del inmueble.
+4. El depósito en garantía debe ser devuelto en un plazo máximo de 30 días naturales posteriores al término del arrendamiento.
+5. Las penas convencionales por terminación anticipada no deben superar el equivalente a dos meses de renta.`,
+  servicios: `1. Los plazos de pago no deben exceder de 30 días a partir de la fecha de facturación.
+2. La propiedad intelectual de los entregables se transmitirá al cliente únicamente cuando éste pague la totalidad de los servicios.
+3. El límite de responsabilidad civil del proveedor debe estar topado al monto total efectivamente cobrado bajo este contrato.
+4. No se aceptarán cláusulas de exclusividad que impidan al proveedor ofrecer sus servicios a otros competidores de la industria.
+5. La rescisión del contrato sin causa justa requiere una notificación por escrito con al menos 30 días de anticipación.`
+};
+
+const fileInput = $('file-input'), dropzone = $('dropzone'), fileInfo = $('file-info');
+const fileName = $('file-name'), fileSize = $('file-size'), removeBtn = $('remove-file');
+const analyzeBtn = $('analyze-btn'), progress = $('progress'), progressFill = $('progress-fill');
+const errorMsg = $('error-msg'), resultEmpty = $('result-empty'), resultContent = $('result-content');
+const playbookSelect = $('playbook-select'), playbookCustomWrap = $('playbook-custom-wrap'), playbookText = $('playbook-text');
+let selectedFile = null;
+
+playbookSelect.onchange = () => {
+  const val = playbookSelect.value;
+  if (val === 'default') {
+    playbookCustomWrap.style.display = 'none';
+    playbookText.value = '';
+  } else {
+    playbookCustomWrap.style.display = 'block';
+    playbookText.value = PLAYBOOK_TEMPLATES[val] || '';
+  }
+};
+
+fileInput.onchange = (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); };
+dropzone.ondragover = (e) => { e.preventDefault(); dropzone.classList.add('dragover'); };
+dropzone.ondragleave = () => dropzone.classList.remove('dragover');
+dropzone.ondrop = (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); };
+
+function handleFile(file) {
+  const ext = '.' + file.name.split('.').pop().toLowerCase();
+  if (!['.pdf', '.docx', '.txt'].includes(ext)) { showError(`Tipo no soportado: ${ext}. Usa PDF, DOCX o TXT.`); return; }
+  if (file.size > 10 * 1024 * 1024) { showError(`Archivo demasiado grande. Máx 10 MB.`); return; }
+  selectedFile = file;
+  fileName.textContent = file.name;
+  fileSize.textContent = `(${(file.size/1024).toFixed(0)} KB)`;
+  fileInfo.style.display = 'flex';
+  analyzeBtn.disabled = false;
+  hideError();
+}
+removeBtn.onclick = () => { selectedFile = null; fileInput.value = ''; fileInfo.style.display = 'none'; analyzeBtn.disabled = true; };
+function showError(msg) { errorMsg.textContent = msg; errorMsg.style.display = 'block'; }
+function hideError() { errorMsg.style.display = 'none'; }
+
+analyzeBtn.onclick = async () => {
+  if (!selectedFile) return;
+  if (state.usage.remaining === 0) { showError('Sin análisis disponibles hoy.'); return; }
+  analyzeBtn.disabled = true;
+  analyzeBtn.textContent = 'Analizando con IA...';
+  progress.style.display = 'block';
+  progressFill.style.width = '20%';
+  resultEmpty.style.display = 'none';
+  resultContent.style.display = 'none';
+  hideError();
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+  const playbookVal = playbookText.value.trim();
+  if (playbookVal) {
+    formData.append('playbook', playbookVal);
+  }
+  try {
+    progressFill.style.width = '50%';
+    const resp = await fetch(`${API_BASE}/api/analyze`, { method: 'POST', headers: { 'Authorization': state.token }, body: formData });
+    progressFill.style.width = '80%';
+    if (resp.status === 401) { showAuth(); return; }
+    if (resp.status === 429) { const err = await resp.json(); showError(err.detail); await refreshUsage(); return; }
+    if (!resp.ok) { const err = await resp.json(); throw new Error(err.detail || `Error ${resp.status}`); }
+    const result = await resp.json();
+    progressFill.style.width = '100%';
+    renderResult(result);
+    state.usage = result.usage;
+    renderUsage();
+  } catch (err) {
+    showError(err.message);
+    resultEmpty.style.display = 'block';
+  } finally {
+    setTimeout(() => { progress.style.display = 'none'; progressFill.style.width = '0%'; analyzeBtn.disabled = false; analyzeBtn.textContent = 'Analizar contrato con IA →'; }, 400);
+  }
+};
+
+function renderResult(r) {
+  resultContent.style.display = 'block';
+  resultEmpty.style.display = 'none';
+  const clausesHtml = (r.clauses || []).map(c => `<div class="clause risk-${c.risk}"><div class="clause-head"><div class="clause-name">${escapeHtml(c.name)}</div><span class="risk-tag r-${c.risk}">${c.risk === 'high' ? 'Alto' : c.risk === 'medium' ? 'Medio' : 'Bajo'}</span></div><div class="clause-snippet">"${escapeHtml(c.snippet)}"</div><div class="clause-explain">${escapeHtml(c.explanation)}</div></div>`).join('');
+  const redFlagsHtml = (r.red_flags || []).map(f => `<div class="red-flag ${f.severity === 'medium' ? 'medium' : ''}"><div class="red-flag-title">${f.severity === 'high' ? '🔴' : '🟡'} ${escapeHtml(f.title)}</div><div class="red-flag-desc">${escapeHtml(f.description)}</div></div>`).join('');
+  const questionsHtml = (r.questions_for_lawyer || []).map(q => `<li>${escapeHtml(q)}</li>`).join('');
+  const highCount = (r.clauses || []).filter(c => c.risk === 'high').length;
+  const medCount = (r.clauses || []).filter(c => c.risk === 'medium').length;
+  const lowCount = (r.clauses || []).filter(c => c.risk === 'low').length;
+  const redFlagCount = (r.red_flags || []).length;
+  const riskLabel = r.risk_level === 'low' ? 'BAJO' : r.risk_level === 'medium' ? 'MEDIO' : 'ALTO';
+  resultContent.innerHTML = `<div class="risk-score ${r.risk_level}"><div class="num">${r.overall_score}</div><div class="lbl">SCORE DE SEGURIDAD<b>Riesgo ${riskLabel}</b></div></div><div class="stats-row"><div class="stat-box"><div class="num" style="color: var(--bad);">${highCount}</div><div class="lbl">Alto</div></div><div class="stat-box"><div class="num" style="color: var(--warn);">${medCount}</div><div class="lbl">Medio</div></div><div class="stat-box"><div class="num" style="color: var(--ok);">${lowCount}</div><div class="lbl">Bajo</div></div><div class="stat-box"><div class="num">${r.word_count.toLocaleString()}</div><div class="lbl">Palabras</div></div></div><div class="summary-box"><strong>Resumen:</strong> ${escapeHtml(r.summary)}</div>${redFlagCount > 0 ? `<div class="section-title">⚠️ Alertas (${redFlagCount})</div>${redFlagsHtml}` : ''}<div class="section-title">📋 Cláusulas (${r.clauses?.length || 0})</div><div class="clause-list">${clausesHtml || '<p style="color: var(--steel); font-size: 12px;">Sin cláusulas detectadas.</p>'}</div>${questionsHtml ? `<div class="section-title">💡 Preguntas para el abogado</div><ul class="question-list">${questionsHtml}</ul>` : ''}<div class="cta-block"><h4>📞 ¿Quieres que un abogado de tu confianza revise este contrato a fondo?</h4><p>El análisis con IA es un primer filtro de gobernanza. Un abogado senior de Yaxz Systems puede realizar la auditoría legal completa adaptada a tu negocio.</p><button class="btn" onclick="window.open('https://wa.me/522218799202?text=Hola%20Trist%C3%A1n%2C%20analic%C3%A9%20un%20contrato%20con%20el%20MVP%20de%20Yaxz.%20Score%3A%20${r.overall_score}%20%7C%20Archivo%3A%20${encodeURIComponent(r.file_name)}', '_blank')">Hablar con un abogado →</button></div>`;
+}
+
+const savedToken = localStorage.getItem('yaxz_token');
+const savedUser = localStorage.getItem('yaxz_user');
+if (savedToken && savedUser) { state.token = savedToken; state.user = JSON.parse(savedUser); showApp(); } else { showAuth(); }
+</script>
+</body>
+</html>

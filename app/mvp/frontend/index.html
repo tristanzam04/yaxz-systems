@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaxz Systems · Diagnóstico de cuellos de botella</title>
+<meta name="description" content="Yaxz Systems. Detecta cuellos de botella en tu negocio (construcción, derecho, comercio) en 3 minutos.">
+<meta name="theme-color" content="#0A192F">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A192F;
+    --ink-2: #1E293B;
+    --paper: #FFFFFF;
+    --paper-2: #F8FAFC;
+    --accent: #0066FF;
+    --accent-2: #3B82F6;
+    --steel: #64748B;
+    --line: #E2E8F0;
+    --ok: #0F766E;
+    --warn: #D97706;
+    --bad: #DC2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Inter', -apple-system, sans-serif; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body { min-height: 100vh; background: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+  .hidden { display: none !important; }
+  .btn { display: inline-block; padding: 14px 24px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .btn-primary { background: var(--ink); color: white; }
+  .btn-primary:hover:not(:disabled) { background: var(--accent); transform: translateY(-1px); }
+  .btn-primary:disabled { background: var(--line); color: var(--steel); cursor: not-allowed; transform: none; }
+  .btn-accent { background: var(--accent); color: white; }
+  .btn-accent:hover { background: var(--ink); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: white; }
+  .btn-lg { padding: 18px 32px; font-size: 16px; }
+  .btn-sm { padding: 10px 16px; font-size: 13px; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); }
+  .nav-wrap { max-width: 1240px; margin: 0 auto; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .logo img, .logo svg { width: 140px; height: auto; }
+  .nav-cta { display: flex; gap: 18px; align-items: center; }
+  .nav-link { font-size: 14px; font-weight: 500; color: var(--ink-2); cursor: pointer; }
+  .nav-link:hover { color: var(--accent); }
+  @media (max-width: 700px) { .nav-link { display: none; } .logo img, .logo svg { width: 110px; } }
+
+  /* LANDING */
+  .view { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .hero { padding: 80px 0 60px; }
+  .hero-inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; align-items: center; }
+  .eyebrow { display: inline-block; font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(255,92,40,0.08); padding: 6px 12px; border-radius: 99px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+  h1 { font-size: 60px; line-height: 1.0; letter-spacing: -2.5px; margin-bottom: 24px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero p.lede { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin-bottom: 32px; max-width: 560px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-trust { display: flex; gap: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--steel); margin-top: 24px; flex-wrap: wrap; }
+  .hero-trust span::before { content: '✓ '; color: var(--accent); font-weight: 700; }
+  .hero-card { background: var(--ink); color: white; padding: 32px; border-radius: 16px; }
+  .hero-card .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  .hero-card h3 { color: white; font-size: 18px; margin-bottom: 16px; }
+  .hero-card .big { font-family: 'JetBrains Mono', monospace; font-size: 44px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -2px; }
+  .hero-card .big small { display: block; font-size: 12px; color: rgba(255,255,255,0.65); font-weight: 400; margin-top: 8px; letter-spacing: 0; font-family: 'Inter', sans-serif; }
+  .hero-card ul { list-style: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .hero-card li { font-size: 13px; padding: 5px 0; color: rgba(255,255,255,0.85); }
+  .hero-card li::before { content: '→ '; color: var(--accent); font-weight: 700; }
+  @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 40px; } h1 { font-size: 40px; } }
+
+  .section { padding: 64px 0; }
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+  .section-head h2 { font-size: 36px; letter-spacing: -1.2px; margin-bottom: 12px; }
+  .section-head p { font-size: 16px; color: var(--ink-2); }
+
+  .services { background: white; border-radius: 20px; padding: 40px 32px; max-width: 1100px; margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .service { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.15s; }
+  .service:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .service .ico { font-size: 28px; margin-bottom: 12px; }
+  .service h3 { font-size: 18px; margin-bottom: 6px; }
+  .service p { font-size: 13px; color: var(--steel); line-height: 1.5; }
+  @media (max-width: 800px) { .services-grid { grid-template-columns: 1fr; } }
+
+  .mvp-banner { background: var(--ink); color: white; border-radius: 20px; padding: 32px; max-width: 1100px; margin: 32px auto 0; display: flex; align-items: center; gap: 24px; }
+  .mvp-banner .ico { font-size: 36px; }
+  .mvp-banner h3 { color: white; font-size: 20px; margin-bottom: 4px; }
+  .mvp-banner p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 14px; }
+  .mvp-banner .btn { background: var(--accent); }
+  .mvp-banner .btn:hover { background: white; color: var(--ink); }
+  @media (max-width: 700px) { .mvp-banner { flex-direction: column; align-items: flex-start; } }
+
+  /* DIAGNOSTIC */
+  .diag-wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .diag-hero { margin-bottom: 32px; text-align: center; }
+  .diag-hero h1 { font-size: 36px; margin-bottom: 8px; }
+  .diag-hero p { color: var(--ink-2); font-size: 16px; max-width: 600px; margin: 0 auto; }
+  .diag-back { font-size: 13px; color: var(--steel); cursor: pointer; margin-bottom: 16px; display: inline-block; }
+  .diag-back:hover { color: var(--accent); }
+
+  .vertical-selector { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+  .vs-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--steel); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .vs-card { border: 2px solid var(--line); border-radius: 12px; padding: 22px 18px; cursor: pointer; transition: all 0.15s; background: white; }
+  .vs-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .vs-card.selected { border-color: var(--accent); background: rgba(255,92,40,0.04); }
+  .vs-card .ico { font-size: 26px; margin-bottom: 10px; }
+  .vs-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .vs-card p { font-size: 11px; color: var(--steel); line-height: 1.4; }
+  @media (max-width: 700px) { .vs-grid { grid-template-columns: 1fr; } }
+
+  .progress { display: flex; gap: 8px; margin: 28px 0 24px; }
+  .pip { flex: 1; height: 4px; background: var(--line); border-radius: 2px; transition: background 0.3s; }
+  .pip.done { background: var(--ink); }
+  .pip.current { background: var(--accent); }
+
+  .step { display: none; animation: fadeIn 0.4s ease; }
+  .step.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .step-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--steel); margin-bottom: 10px; }
+  .step h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .step .help { color: var(--steel); font-size: 14px; margin-bottom: 20px; }
+  .opt-list { display: flex; flex-direction: column; gap: 10px; }
+  .opt { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border: 2px solid var(--line); border-radius: 10px; background: white; cursor: pointer; transition: all 0.15s; font-size: 15px; font-weight: 500; }
+  .opt:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .opt.selected { border-color: var(--accent); background: rgba(255,92,40,0.04); }
+  .opt .ico-pip { font-size: 18px; flex-shrink: 0; }
+  .opt .badge { margin-left: auto; font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--steel); background: var(--paper-2); padding: 3px 8px; border-radius: 4px; }
+  .opt.selected .badge { background: var(--accent); color: white; }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); }
+  .field input, .field textarea { width: 100%; padding: 13px 16px; border: 2px solid var(--line); border-radius: 10px; font-size: 15px; font-family: inherit; background: white; transition: border 0.15s; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+  .field textarea { min-height: 80px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .row { grid-template-columns: 1fr; } h1 { font-size: 28px; } }
+
+  .slider-wrap { background: white; padding: 22px; border-radius: 12px; border: 2px solid var(--line); }
+  .slider-wrap .value { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--accent); margin-bottom: 6px; letter-spacing: -1px; }
+  .slider-wrap input[type=range] { width: 100%; height: 6px; border-radius: 3px; background: var(--line); appearance: none; outline: none; }
+  .slider-wrap input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 2px 8px rgba(255,92,40,0.4); }
+  .slider-wrap input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
+  .slider-wrap .scale { display: flex; justify-content: space-between; font-size: 10px; color: var(--steel); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 12px; }
+  .nav-row .btn-primary { min-width: 160px; }
+
+  .result-head { background: var(--ink); color: white; padding: 36px; border-radius: 16px; margin-bottom: 24px; }
+  .result-head .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .result-head h2 { color: white; font-size: 24px; line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .result-head .big { font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 800; color: var(--accent); letter-spacing: -2px; line-height: 1; margin: 8px 0 4px; }
+  .result-head .big small { font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 400; display: block; margin-top: 8px; letter-spacing: 0; font-family: 'Inter', sans-serif; }
+  .finding { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+  .finding-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .finding-tag { font-size: 10px; font-family: 'JetBrains Mono', monospace; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 1px; text-transform: uppercase; }
+  .finding-tag.crit { background: rgba(184,42,42,0.1); color: var(--bad); }
+  .finding-tag.warn { background: rgba(199,119,0,0.1); color: var(--warn); }
+  .finding-tag.ok { background: rgba(45,122,79,0.1); color: var(--ok); }
+  .finding h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .finding p { color: var(--ink-2); font-size: 14px; line-height: 1.55; margin-bottom: 6px; }
+  .finding .impact { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--steel); padding-top: 6px; border-top: 1px solid var(--line); }
+  .verdict { background: linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 100%); color: white; padding: 28px; border-radius: 16px; margin: 24px 0; }
+  .verdict .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .verdict h3 { color: white; font-size: 20px; line-height: 1.25; margin-bottom: 12px; }
+  .verdict p { color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.55; }
+  .verdict .ai-decision { display: inline-block; margin-top: 14px; padding: 7px 14px; background: var(--accent); color: white; font-weight: 600; font-size: 12px; border-radius: 6px; letter-spacing: 0.5px; }
+  .mvp-cta { background: var(--accent-2); color: var(--ink); padding: 22px; border-radius: 16px; margin: 20px 0; display: flex; align-items: center; gap: 20px; }
+  .mvp-cta .ico { font-size: 32px; }
+  .mvp-cta h3 { font-size: 18px; margin-bottom: 4px; }
+  .mvp-cta p { font-size: 13px; color: rgba(10,14,26,0.75); margin-bottom: 10px; }
+  .mvp-cta .btn { background: var(--ink); color: white; }
+  .mvp-cta .btn:hover { background: var(--accent); }
+  .cta-block { background: var(--accent); color: white; padding: 28px; border-radius: 16px; text-align: center; margin-top: 16px; }
+  .cta-block h3 { font-size: 20px; margin-bottom: 6px; }
+  .cta-block p { margin-bottom: 18px; opacity: 0.95; font-size: 14px; }
+  .cta-block .btn { background: white; color: var(--ink); }
+  .cta-block .btn:hover { background: var(--ink); color: white; }
+
+  .footer-note { text-align: center; margin-top: 32px; font-size: 11px; color: var(--steel); font-family: 'JetBrains Mono', monospace; }
+
+  /* SECCIONES ADICIONALES */
+  .section-alt { background: var(--paper-2); }
+
+  /* About / Qué hacemos */
+  .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-card { background: white; border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+  .about-card .ico { font-size: 32px; margin-bottom: 12px; }
+  .about-card h3 { font-size: 18px; margin-bottom: 8px; letter-spacing: -0.3px; }
+  .about-card p { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+
+  /* Proceso */
+  .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  @media (max-width: 1100px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; } }
+  .process-step { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 20px; position: relative; }
+  .process-step .step-num { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+  .process-step h4 { font-size: 16px; letter-spacing: 1px; margin-bottom: 4px; }
+  .process-step .step-dur { font-size: 11px; color: var(--steel); text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
+  .process-step p { color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+
+  /* Casos */
+  .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .cases-grid { grid-template-columns: 1fr; } }
+  .case-card { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .case-vertical { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .case-card h4 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .case-badge { font-size: 9px; font-weight: 700; background: var(--accent); color: white; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.5px; }
+  .case-card p { font-size: 12px; line-height: 1.5; margin-bottom: 8px; color: var(--ink-2); }
+  .case-solution { padding-top: 8px; border-top: 1px dashed var(--line); margin-top: 8px; }
+  .case-solution em { color: var(--ok); font-style: normal; font-weight: 600; }
+
+  /* Por qué */
+  .why-grid { display: flex; flex-direction: column; gap: 16px; max-width: 800px; margin: 0 auto; }
+  .why-item { display: flex; gap: 20px; background: white; border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .why-num { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1; flex-shrink: 0; width: 40px; }
+  .why-item h4 { font-size: 15px; margin-bottom: 4px; letter-spacing: -0.2px; }
+  .why-item p { color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+
+  /* Fundador */
+  .founder-card { background: white; border: 1px solid var(--line); border-radius: 14px; padding: 32px; max-width: 800px; margin: 0 auto; }
+  .founder-bio { color: var(--ink-2); font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+  .founder-stack { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 18px 0 20px; }
+  .stack-label { font-size: 12px; font-weight: 600; color: var(--steel); margin-right: 4px; }
+  .stack-item { font-size: 11px; font-family: 'JetBrains Mono', monospace; background: var(--paper-2); padding: 4px 10px; border-radius: 4px; color: var(--ink-2); }
+  .founder-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Pricing */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .price-card { background: white; border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+  .price-card.featured { border: 2px solid var(--accent); position: relative; transform: translateY(-4px); box-shadow: 0 8px 24px rgba(255,92,40,0.12); }
+  .price-card.featured::before { content: 'Más común'; position: absolute; top: -10px; right: 20px; background: var(--accent); color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 1px; }
+  .price-card .route { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1.5px; margin-bottom: 8px; }
+  .price-card h4 { font-size: 20px; margin-bottom: 6px; letter-spacing: -0.3px; }
+  .price-card .route-for { font-size: 12px; color: var(--steel); margin-bottom: 16px; font-style: italic; }
+  .price-card ul { list-style: none; margin-bottom: 18px; }
+  .price-card li { padding: 6px 0 6px 18px; position: relative; font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+  .price-card li::before { content: '✓'; position: absolute; left: 0; color: var(--ok); font-weight: 700; }
+  .price-card .price { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .price-card .price small { font-size: 11px; color: var(--steel); font-weight: 400; }
+  .price-card .price-note { font-size: 11px; color: var(--steel); font-style: italic; }
+
+  /* CTA final */
+  .cta-block { text-align: center; }
+  .cta-block h3 { font-size: 28px; margin-bottom: 12px; letter-spacing: -0.8px; }
+  .cta-block p { max-width: 600px; margin: 0 auto 20px; opacity: 0.9; }
+  .cta-block .cta-foot { margin-top: 20px; font-size: 12px; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-wrap">
+    <a class="logo" onclick="go('landing')" aria-label="Yaxz Systems">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180" width="100%" height="100%">
+        <style>
+          .logo-container {
+            cursor: pointer;
+          }
+          .letter {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 76px;
+            font-weight: 900;
+            fill: #0A192F;
+            transition: fill 0.3s ease;
+          }
+          @keyframes wave {
+            0%, 100% {
+              transform: translateY(0);
+              fill: #0A192F;
+            }
+            50% {
+              transform: translateY(-12px);
+              fill: #0066FF;
+            }
+          }
+          .logo:hover .letter {
+            animation: wave 1.0s ease-in-out infinite;
+          }
+          .logo:hover .l-1 { animation-delay: 0.0s; }
+          .logo:hover .l-2 { animation-delay: 0.12s; }
+          .logo:hover .l-3 { animation-delay: 0.24s; }
+          .logo:hover .l-4 { animation-delay: 0.36s; }
+        </style>
+        <g class="logo-container">
+          <rect width="100%" height="100%" fill="transparent"/>
+          <text x="160" y="115" class="letter l-1">Y</text>
+          <text x="215" y="115" class="letter l-2">A</text>
+          <text x="275" y="115" class="letter l-3">X</text>
+          <text x="330" y="115" class="letter l-4">Z</text>
+        </g>
+      </svg>
+    </a>
+    <div class="nav-cta">
+      <a class="nav-link" onclick="go('diag')">Diagnóstico</a>
+      <a class="nav-link" href="#que-hacemos">Qué hacemos</a>
+      <a class="nav-link" href="#proceso">Proceso</a>
+      <a class="nav-link" href="#pricing">Rutas</a>
+      <a class="btn btn-primary btn-sm" href="https://wa.me/522218799202?text=Hola%20Trist%C3%A1n" target="_blank" rel="noopener">WhatsApp →</a>
+    </div>
+  </div>
+</nav>
+
+<main id="view-landing">
+  <section class="hero">
+    <div class="view">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">Consultoría de operaciones · 3 verticales</span>
+          <h1>Detecta los <em>cuellos de botella</em> de tu negocio. Resuélvelos en 90 días.</h1>
+          <p class="lede">Para constructoras, despachos legales y comercios en México. Diagnóstico estructurado en 3 minutos, MVPs con IA accionables, mantenimiento continuo.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-accent btn-lg" onclick="go('diag')">Hacer diagnóstico gratis →</button>
+            <a class="btn btn-ghost btn-lg" href="revisor.html">Probar el MVP de contratos</a>
+          </div>
+          <div class="hero-trust">
+            <span>Sin instalar nada</span>
+            <span>3 minutos</span>
+            <span>Resultados en 90 días</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="lbl">Diagnóstico típico · Despacho legal mediano</div>
+          <h3>Ahorro anual estimado</h3>
+          <div class="big">$1,058,000<small>Rango conservador–optimista según vertical</small></div>
+          <ul>
+            <li>2-4 hallazgos críticos detectados</li>
+            <li>Recomendación: ¿requiere IA o no?</li>
+            <li>Plan de 90 días personalizado</li>
+            <li>Reporte descargable + WhatsApp directo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="view">
+      <div class="section-head">
+        <span class="eyebrow">Cómo podemos ayudarte</span>
+        <h2>Empieza con un diagnóstico. Sin costo, sin compromiso.</h2>
+        <p>3 minutos, 6 preguntas, 3 verticales. Te decimos dónde está tu cuello de botella y cuánto te está costando.</p>
+      </div>
+      <div class="services">
+        <div class="services-grid">
+          <div class="service" onclick="startDiag('construccion')">
+            <div class="ico">🏗️</div>
+            <h3>Construcción / Obras</h3>
+            <p>Constructoras, desarrolladoras, contratistas, proveedores de obra civil.</p>
+          </div>
+          <div class="service" onclick="startDiag('derecho')">
+            <div class="ico">⚖️</div>
+            <h3>Derecho / Legal</h3>
+            <p>Despachos de abogados, litigio, corporativo, fiscal. Cualquier tamaño.</p>
+          </div>
+          <div class="service" onclick="startDiag('comercio')">
+            <div class="ico">🛒</div>
+            <h3>Comercio / Retail</h3>
+            <p>Tiendas, e-commerce, mayoristas, franquicias. Desde changarros hasta cadenas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mvp-banner">
+        <div class="ico">⚡</div>
+        <div style="flex:1">
+          <h3>Ya tenemos un MVP listo: revisor de contratos con IA</h3>
+          <p>Pega un contrato, detecta cláusulas estándar, marca zonas de riesgo en 60 segundos. Sin registro. Ideal para abogados, empresas y áreas legales.</p>
+        </div>
+        <a class="btn" href="mvp/frontend/index.html">Probar gratis →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ HACEMOS -->
+  <section class="section" id="que-hacemos">
+    <div class="view">
+      <div class="section-head">
+        <span class="eyebrow">Qué hacemos</span>
+        <h2>Detective de cuellos de botella. Constructor de soluciones.</h2>
+        <p>Las empresas en México pierden entre 15% y 30% de cada proyecto en sobrecostos, retrabajos y tiempos muertos. Yaxz existe para encontrar dónde se va ese dinero y resolverlo en 90 días. A veces con IA, a veces sin IA — siempre con criterio.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="ico">🔍</div>
+          <h3>Diagnóstico estructurado</h3>
+          <p>2-3 semanas de discovery + análisis cuantitativo. Mapa AS-IS de la operación, árbol de decisión, hallazgos priorizados con cifras. El cliente sale con un reporte ejecutivo y un mapa claro de dónde están las fugas.</p>
+        </div>
+        <div class="about-card">
+          <div class="ico">🧩</div>
+          <h3>MVP accionable en 4 semanas</h3>
+          <p>No vendemos "transformación digital" genérica. Construimos el producto mínimo viable más pequeño que capture ROI real. Lanzamos en uso, aprendemos con datos, iteramos.</p>
+        </div>
+        <div class="about-card">
+          <div class="ico">🛠️</div>
+          <h3>Mantenimiento continuo</h3>
+          <p>El MVP abandonado a los 3 meses es un fracaso. El contrato de mantenimiento (mínimo 6 meses) asegura que el producto se use, capture ROI, e itere con datos del mundo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO YAXZ -->
+  <section class="section section-alt" id="proceso">
+    <div class="view">
+      <div class="section-head">
+        <span class="eyebrow">El proceso</span>
+        <h2>5 fases. 90 días. Un resultado medible.</h2>
+        <p>Cada proyecto sigue la misma secuencia. La diferencia es la profundidad, no el método.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>SCAN</h4>
+            <p class="step-dur">2-3 semanas</p>
+            <p>Discovery remoto + inmersión en sitio. Entrevistas a 8-12 personas clave, observación directa, análisis cuantitativo. Entregable: Reporte ejecutivo con 8-15 páginas y base de datos de hallazgos.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>MAP</h4>
+            <p class="step-dur">1-2 semanas</p>
+            <p>Modelado TO-BE del proceso objetivo. Gap analysis. Decisión tecnológica explícita: ¿digitalizar primero, automatizar, IA, o integración? Caso de negocio del MVP con ROI conservador y optimista.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>DESIGN</h4>
+            <p class="step-dur">2-3 semanas</p>
+            <p>Spec funcional con historias de usuario. Spec técnica con stack, arquitectura, integraciones. Plan de releases en 2-3 sprints. Métricas de éxito operativas y de negocio.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>DEPLOY</h4>
+            <p class="step-dur">2-4 semanas</p>
+            <p>Implementación incremental. Sprint 1: setup técnico. Sprint 2: release 1 con 3-5 early adopters. Sprint 3: release 2 con 10-20% de usuarios. Sprint 4: release 3 al 100%, capacitación, handover.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>SUSTAIN</h4>
+            <p class="step-dur">Continuo (mín 6 meses)</p>
+            <p>Monitoreo semanal. Reunión mensual con sponsor. Release de mejora trimestral. Re-diagnóstico semestral. Esto es donde se captura el ROI de verdad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASOS TÍPICOS -->
+  <section class="section" id="casos">
+    <div class="view">
+      <div class="section-head">
+        <span class="eyebrow">Casos típicos</span>
+        <h2>Los 5 cuellos de botella que más vemos.</h2>
+        <p>Cuando hables con un prospecto, no listes los 5. Pregunta: "¿Cuál te está pegando más al bolsillo hoy?" El que mencione primero es donde arrancamos.</p>
+      </div>
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-vertical">🏗️ Construcción</div>
+          <h4>Elaboración de presupuestos</h4>
+          <p class="case-symptom"><strong>Síntoma:</strong> Tarda 5-25 días-hombre por proyecto. Tasa de éxito del 25%.</p>
+          <p class="case-cost"><strong>Costo típico:</strong> $80-200K MXN/mes en trabajo desperdiciado.</p>
+          <p class="case-solution"><strong>Solución Yaxz:</strong> MVP con IA que genera primera versión del presupuesto en minutos; el humano refina. <em>Ahorro demostrable: 60% del tiempo invertido.</em></p>
+        </div>
+        <div class="case-card">
+          <div class="case-vertical">🏗️ Construcción</div>
+          <h4>Control de obra</h4>
+          <p class="case-symptom"><strong>Síntoma:</strong> Avance físico, financiero y de calidad medidos por separado y tarde.</p>
+          <p class="case-cost"><strong>Costo típico:</strong> 8-15% del valor del proyecto en sobrecostos no detectados.</p>
+          <p class="case-solution"><strong>Solución Yaxz:</strong> Dashboard en tiempo real con alertas tempranas. <em>Ahorro demostrable: 50% de los sobrecostos.</em></p>
+        </div>
+        <div class="case-card">
+          <div class="case-vertical">⚖️ Derecho</div>
+          <h4>Revisión de contratos <span class="case-badge">+ MVP</span></h4>
+          <p class="case-symptom"><strong>Síntoma:</strong> Socios senior gastan 8-15 horas/semana en revisión de primera línea.</p>
+          <p class="case-cost"><strong>Costo típico:</strong> $80-200K MXN/mes redirigibles a trabajo de mayor valor.</p>
+          <p class="case-solution"><strong>Solución Yaxz:</strong> MVP con IA que hace primera revisión + flag de cláusulas críticas. <em>Estado: MVP funcional listo en app/mvp/frontend/.</em></p>
+        </div>
+        <div class="case-card">
+          <div class="case-vertical">⚖️ Derecho</div>
+          <h4>Cobranza de honorarios</h4>
+          <p class="case-symptom"><strong>Síntoma:</strong> DSO de 60-120 días, sin seguimiento automatizado.</p>
+          <p class="case-cost"><strong>Costo típico:</strong> 20-30% del capital de trabajo atrapado.</p>
+          <p class="case-solution"><strong>Solución Yaxz:</strong> Políticas automatizadas + escalación por mora + recordatorios. <em>Ahorro: capital liberado en 30-45 días.</em></p>
+        </div>
+        <div class="case-card">
+          <div class="case-vertical">🛒 Comercio</div>
+          <h4>Control de inventario</h4>
+          <p class="case-symptom"><strong>Síntoma:</strong> Compras de más, ventas perdidas por falta de stock, mermas invisibles.</p>
+          <p class="case-cost"><strong>Costo típico:</strong> 3-8% de mermas + ventas perdidas no medidas.</p>
+          <p class="case-solution"><strong>Solución Yaxz:</strong> Sistema en tiempo real con alertas. <em>Ahorro demostrable: 40% de mermas en 60 días.</em></p>
+        </div>
+        <div class="case-card">
+          <div class="case-vertical">🛒 Comercio</div>
+          <h4>Atención al cliente</h4>
+          <p class="case-symptom"><strong>Síntoma:</strong> El dueño es el centro de todo, 3-6 horas/día en WhatsApp.</p>
+          <p class="case-cost"><strong>Costo típico:</strong> Crecimiento limitado por dependencia del fundador.</p>
+          <p class="case-solution"><strong>Solución Yaxz:</strong> Bot de WhatsApp + FAQs + flujos automatizados. <em>Ahorro: 60-80% del tiempo del dueño.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ YAXZ -->
+  <section class="section section-alt" id="por-que">
+    <div class="view">
+      <div class="section-head">
+        <span class="eyebrow">Por qué Yaxz</span>
+        <h2>4 cosas que no vas a encontrar en otra consultora.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div>
+            <h4>Decimos "no" a la IA cuando no aplica</h4>
+            <p>Más del 60% de los cuellos de botella se resuelven con rediseño de proceso + herramientas que ya tienes. Decir "aquí va IA" cuando no es así, es mentir y encarecer el proyecto.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div>
+            <h4>El diagnóstico vale por sí mismo</h4>
+            <p>No es pretexto para venderte algo. Si después del diagnóstico concluimos que no somos el partner correcto, te lo decimos y te recomendamos a alguien mejor.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div>
+            <h4>MVP en 4 semanas, no 4 meses</h4>
+            <p>El MVP no es la versión barata del producto final. Es la versión más pequeña que genera aprendizaje real. Lanzamos en uso, aprendemos, iteramos con datos.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">4</div>
+          <div>
+            <h4>El mantenimiento es el producto</h4>
+            <p>Si el MVP se abandona a los 3 meses porque nadie sabe operarlo, fallamos. El contrato de mantenimiento (mín 6 meses) no es upsell — es parte del diseño.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS / MODELO DE INGRESOS -->
+  <section class="section section-alt" id="pricing">
+    <div class="view">
+      <div class="section-head">
+        <span class="eyebrow">Modelo de trabajo</span>
+        <h2>3 rutas. Una sola decisión: ¿qué cuello de botella te duele más?</h2>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="route">Ruta A</div>
+          <h4>Solo diagnóstico</h4>
+          <p class="route-for">Para quien quiere entender antes de comprometerse.</p>
+          <ul>
+            <li>Reporte ejecutivo con hallazgos priorizados</li>
+            <li>Mapa AS-IS y árbol de decisión</li>
+            <li>Recomendación explícita: ¿IA sí o no?</li>
+            <li>Reunión de cierre de 60 min</li>
+          </ul>
+          <div class="price">$80K – $250K <small>MXN</small></div>
+          <p class="price-note">Se acredita 100% si continúas a Ruta B.</p>
+        </div>
+        <div class="price-card featured">
+          <div class="route">Ruta B</div>
+          <h4>Diagnóstico + MVP</h4>
+          <p class="route-for">El caso más común. De 0 a producto en uso en 90 días.</p>
+          <ul>
+            <li>Todo lo de Ruta A</li>
+            <li>Spec funcional y técnica</li>
+            <li>MVP implementado en producción</li>
+            <li>Capacitación + manual + handover</li>
+            <li>Mes 1 de mantenimiento incluido</li>
+          </ul>
+          <div class="price">$200K – $1.5M <small>MXN</small></div>
+          <p class="price-note">Sin IA: $200-600K. Con IA: $400K-1.5M.</p>
+        </div>
+        <div class="price-card">
+          <div class="route">Ruta C</div>
+          <h4>Partner recurrente</h4>
+          <p class="route-for">Mantenimiento + mejora continua + nuevos proyectos.</p>
+          <ul>
+            <li>Monitoreo semanal + alertas</li>
+            <li>Reunión mensual con sponsor</li>
+            <li>Release de mejora trimestral</li>
+            <li>Re-diagnóstico semestral</li>
+            <li>Capacidad de proyecto priorizada</li>
+          </ul>
+          <div class="price">$25K – $180K <small>MXN / mes</small></div>
+          <p class="price-note">Compromiso mínimo 6 meses. Después se renueva trimestral.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section">
+    <div class="view">
+      <div class="cta-block">
+        <h3>¿Listo para ver dónde se te está yendo el dinero?</h3>
+        <p>El primer paso es un diagnóstico gratuito de 30 minutos por WhatsApp. Sin compromiso. Salimos de la llamada con un mapa claro de dónde está tu cuello de botella más caro.</p>
+        <a class="btn btn-accent btn-lg" href="https://wa.me/522218799202?text=Hola%20Trist%C3%A1n%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratis" target="_blank" rel="noopener">Agendar diagnóstico gratis →</a>
+        <p class="cta-foot">+52 221 879 9202 · tristan@yaxz.systems · Respuesta en menos de 4 horas hábiles</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-note" style="padding: 32px 24px; border-top: 1px solid var(--line); margin-top: 0;">
+    <div style="margin-bottom: 8px;"><strong>Yaxz Systems</strong> · Tristán Zamora</div>
+    <div><a href="https://wa.me/522218799202" target="_blank" rel="noopener">+52 221 879 9202</a> · <a href="mailto:tristan@yaxz.systems">tristan@yaxz.systems</a></div>
+    <div style="margin-top: 12px; opacity: 0.6;">© 2026 Yaxz Systems · Hecho en México con criterio e IA</div>
+  </footer>
+</main>
+
+<main id="view-diag" class="hidden">
+  <div class="diag-wrap">
+    <a class="diag-back" onclick="go('landing')">← Volver al inicio</a>
+    <div class="diag-hero">
+      <h1>Diagnóstico Yaxz</h1>
+      <p>3 minutos, 6 preguntas. Detectamos tus cuellos de botella y estimamos el ahorro potencial.</p>
+    </div>
+
+    <div id="vertical-selector" class="vertical-selector">
+      <div class="vs-label">PASO 01 · Selecciona tu tipo de negocio</div>
+      <div class="vs-grid">
+        <div class="vs-card" data-vertical="construccion">
+          <div class="ico">🏗️</div>
+          <h3>Construcción / Obras</h3>
+          <p>Constructoras, despachos de ingeniería, desarrolladoras, contratistas.</p>
+        </div>
+        <div class="vs-card" data-vertical="derecho">
+          <div class="ico">⚖️</div>
+          <h3>Derecho / Legal</h3>
+          <p>Despachos de abogados, litigio, corporativo, fiscal, PI.</p>
+        </div>
+        <div class="vs-card" data-vertical="comercio">
+          <div class="ico">🛒</div>
+          <h3>Comercio / Retail</h3>
+          <p>Tiendas, e-commerce, mayoristas, franquicias.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="diag-progress" class="progress hidden">
+      <div class="pip current"></div>
+      <div class="pip"></div>
+      <div class="pip"></div>
+      <div class="pip"></div>
+      <div class="pip"></div>
+    </div>
+
+    <form id="diag-form" class="hidden" autocomplete="off"></form>
+    <div id="diag-result"></div>
+  </div>
+</main>
+
+<script>
+const API_BASE = window.location.origin;
+const VIEWS = { landing:'view-landing', diag:'view-diag' };
+const state = { view:'landing', step:1, vertical:null, data:{} };
+function go(view){
+  state.view = view;
+  Object.values(VIEWS).forEach(v => document.getElementById(v).classList.add('hidden'));
+  document.getElementById(VIEWS[view]).classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+const VERTICALS = {
+  construccion: {
+    nombre: 'Construcción / Obras', badge: 'CONSTRUCCIÓN',
+    procesoLabel: '¿Cuál es el proceso que más te duele hoy?',
+    procesos: [
+      { v:'presupuesto', t:'💰 Elaboración de presupuestos y licitaciones' },
+      { v:'control-obra', t:'📋 Control de obra (avance, calidad, físico vs financiero)' },
+      { v:'compras', t:'📦 Compras y procurement (materiales, subcontratos)' },
+      { v:'cobranza', t:'💸 Cobranza y flujo de caja' },
+      { v:'cliente', t:'🤝 Gestión con clientes y preventa' },
+      { v:'diseno', t:'📐 Diseño, ingeniería y compatibilidad BIM' },
+      { v:'rh', t:'👷 Recursos humanos en obra' },
+      { v:'reportes', t:'📊 Reportes a dirección / inversionistas' },
+      { v:'otro', t:'Otro (lo describo más adelante)' }
+    ],
+    tamanoLabel: '¿Cuántas personas trabajan en la operación?',
+    tamanoOpc: [
+      { v:'micro', t:'1 – 10 personas' }, { v:'pyme', t:'11 – 50 personas' },
+      { v:'mediana', t:'51 – 200 personas' }, { v:'grande', t:'201 – 1,000 personas' }, { v:'corporativo', t:'+ 1,000 personas' }
+    ],
+    digitalLabel: '¿Qué tan digital está hoy ese proceso?',
+    digitalOpc: [
+      { v:'papel', t:'📝 Papel, Excel básico y WhatsApp', badge:'+ común' },
+      { v:'erp', t:'🗄️ ERP / software de gestión (Opus, Neodata, Primavera)' },
+      { v:'mixto', t:'🔀 Mixto: software para unas cosas, Excel para otras' },
+      { v:'avanzado', t:'🚀 Digitalización avanzada con APIs y dashboards' }
+    ],
+    costoLabel: '¿Cuánto estimas que te cuesta este cuello de botella al año?',
+    costoHint: 'Incluye costos directos + horas-hombre desperdiciadas + oportunidades perdidas + multas o retrasos.',
+    procMap: {
+      'presupuesto': { title:'El ciclo de presupuesto es lento y costoso', body:'La elaboración de presupuestos en construcción mexicana toma entre 5 y 25 días-hombre por proyecto. En el 70% de los casos, ese trabajo se desperdicia.', impact:'Tasa de éxito típica: solo 1 de cada 4 presupuestos se convierte.' },
+      'control-obra': { title:'No tienes visibilidad real del avance vs el plan', body:'El control de obra opera con datos atrasados. Cuando detectas un retraso, ya es tarde para corregir.', impact:'Costo típico: 8-15% del valor del proyecto se pierde en sobrecostos no detectados.' },
+      'compras': { title:'Compras reactivas, no estratégicas', body:'Las compras se disparan cuando algo se acaba, no cuando algo se necesita. Sin consolidación ni histórico analizable, pierdes poder de negociación.', impact:'Ahorro demostrable: 6-18% en materiales + 40-70% en fletes express.' },
+      'cobranza': { title:'Cobranza y flujo de caja sin previsibilidad', body:'La cobranza depende de la insistencia de personas. No hay sistema que escale, ni alertas tempranas.', impact:'Costo de oportunidad: 20-35% del capital de trabajo atrapado.' },
+      'cliente': { title:'Adquisición de clientes ineficiente', body:'La preventa consume mucho tiempo y los leads se pierden por lentitud en la respuesta.', impact:'Mejorar 24h el tiempo de respuesta puede duplicar la tasa de cierre.' },
+      'diseno': { title:'Incompatibilidades detectadas en obra, no en diseño', body:'Los conflictos entre disciplinas se descubren en obra, cuando corregirlos es 5-10x más caro.', impact:'Costo típico de corrección BIM tardía: 3-8% del valor del proyecto.' },
+      'rh': { title:'Rotación y pago en obra es un dolor permanente', body:'El control de asistencia, cálculo de nómina y rotación de personal en obra es manual.', impact:'Costo de rotación en construcción: 30-50% del salario mensual del puesto.' },
+      'reportes': { title:'Los reportes se construyen a mano cada mes', body:'Tu dirección recibe reportes hechos a mano, con datos del mes pasado, cuando ya es demasiado tarde para actuar.', impact:'Tiempo del controller: 2-5 días al mes en consolidar datos manualmente.' }
+    },
+    digitalFindings: {
+      'papel': { tag:'crit', tagLabel:'Crítico', title:'Proceso opera con herramientas manuales o fragmentadas', body:'El uso de papel, Excel y WhatsApp como sistema nervioso principal genera pérdida de información, retrabajo y dependencia de personas clave.', impact:'Impacto estimado: 30-50% de las horas-hombre administrativas se pierden en retrabajo y búsqueda de información.' },
+      'mixto': { tag:'warn', tagLabel:'Atención', title:'Sistemas desconectados entre áreas', body:'La mezcla de software + Excel genera islas de información. El dato se captura 2-3 veces antes de llegar a quien lo necesita.', impact:'Impacto estimado: 20-35% del tiempo del personal técnico se va en reconciliar datos entre sistemas.' },
+      'erp': { tag:'warn', tagLabel:'Atención', title:'El ERP existe pero el proceso específico no está optimizado', body:'Tu ERP cubre el proceso general, pero el subproceso que describes está funcionando con workarounds manuales.', impact:'Impacto estimado: 15-25% de los usuarios del ERP terminan usando Excel encima.' },
+      'avanzado': { tag:'ok', tagLabel:'Bien', title:'Buen nivel de digitalización base', body:'Tu operación ya tiene infraestructura. El cuello de botella probablemente está en la toma de decisiones.', impact:'Impacto estimado: el problema es de orquestación inteligente, no de captura.' }
+    }
+  },
+  derecho: {
+    nombre: 'Despacho Legal', badge: 'DERECHO',
+    procesoLabel: '¿Cuál es el proceso que más tiempo o dinero te cuesta?',
+    procesos: [
+      { v:'revision-contratos', t:'📜 Revisión y redacción de contratos', badge:'+ común' },
+      { v:'litigio', t:'⚔️ Gestión de litigios y expedientes judiciales' },
+      { v:'cobranza-honorarios', t:'💰 Cobranza de honorarios y cuentas por cobrar' },
+      { v:'onboarding-cliente', t:'🤝 Onboarding de clientes y KYC / PLD' },
+      { v:'investigacion', t:'🔍 Investigación legal y due diligence' },
+      { v:'tiempo-facturable', t:'⏱️ Captura de tiempo y facturación' },
+      { v:'gestion-equipo', t:'👥 Coordinación del equipo y asignaciones' },
+      { v:'reportes-socios', t:'📊 Reportes a socios / dirección' },
+      { v:'otro', t:'Otro (lo describo más adelante)' }
+    ],
+    tamanoLabel: '¿Cuántos abogados y staff tiene el despacho?',
+    tamanoOpc: [
+      { v:'individual', t:'1 – 3 personas (abogado independiente)' },
+      { v:'pequeno', t:'4 – 10 personas (boutique)' },
+      { v:'mediano', t:'11 – 30 personas (mediano)' },
+      { v:'grande', t:'31 – 80 personas (firma grande)' },
+      { v:'corporativo', t:'+ 80 personas (firma nacional/internacional)' }
+    ],
+    digitalLabel: '¿Qué software usan hoy para operar?',
+    digitalOpc: [
+      { v:'papel', t:'📝 Word, correo, Excel, carpetas físicas', badge:'+ común' },
+      { v:'software-legal', t:'💼 Software legal (Clio, Legalio, Suma, Procu)' },
+      { v:'mixto', t:'🔀 Mixto: software para unos casos, Word para otros' },
+      { v:'avanzado', t:'🚀 Stack propio + automatizaciones + integraciones' }
+    ],
+    costoLabel: '¿Cuánto te cuesta al año ese cuello de botella?',
+    costoHint: 'Incluye horas de abogados no facturables, atrasos, errores que generan pasivos, oportunidades perdidas.',
+    procMap: {
+      'revision-contratos': { title:'La revisión de contratos consume horas premium de socios', body:'En despachos grandes, hasta el 60% del tiempo de los socios senior se va en revisión de primera línea de contratos que perfectamente puede hacer un junior con buena metodología — o un LLM con buenos prompts.', impact:'Costo demostrable: 8-15 horas/semana de un socio senior. A tarifa de mercado, son $80-200K MXN/mes redirigibles.' },
+      'litigio': { title:'Los expedientes viven en mil lugares y nadie tiene el control', body:'Expedientes físicos en archiveros, digitales en drives, copias en correos, autos en PDF sueltos.', impact:'Horas-hombre desperdiciadas en búsqueda: 3-6 horas/semana por abogado litigante.' },
+      'cobranza-honorarios': { title:'Tienes el trabajo pero no el dinero', body:'Los despachos viven en la paradoja de facturar mucho y cobrar tarde. Sin políticas automatizadas de seguimiento.', impact:'DSO típico en despachos: 60-120 días. Reducirlo a 30 libera capital de trabajo significativo.' },
+      'onboarding-cliente': { title:'Cada nuevo cliente es un proyecto manual de 2-3 días', body:'Recopilar documentos, verificar identidad (PLD), firmar cartas de engagement, abrir expediente, asignar responsable.', impact:'Tiempo por nuevo cliente: 8-15 horas. Para un despacho que suma 10 clientes/mes, son 100+ horas administrativas automatizables 80%.' },
+      'investigacion': { title:'La investigación legal es la nueva búsqueda en Google', body:'Jurisprudencia, tesis, normativa, doctrina. Los abogados senior tienen el conocimiento en la cabeza; los juniors pierden horas buscando.', impact:'Tiempo de investigación: 2-5 horas por caso simple, 10-20 por complejo. Reducir 30% con IA es fácil.' },
+      'tiempo-facturable': { title:'"¿En qué se te fue la semana?" no debería ser una pregunta', body:'Si los abogados no capturan tiempo en el momento, estás facturando 15-30% menos de lo que realmente trabajaste.', impact:'Horas no facturadas por mala captura: 20-35% del tiempo real. Para un despacho que factura $5M/mes, son $1M/año.' },
+      'gestion-equipo': { title:'Los socios son el cuello de botella de decisión', body:'Cada avance importante requiere visto bueno del socio. Los asociados esperan, los clientes también, las oportunidades se pierden.', impact:'Tiempo de ciclo de decisión: 3-7 días en promedio. Con jerarquía clara, baja a 24-48h.' },
+      'reportes-socios': { title:'Los reportes de gestión se arman a mano cada mes', body:'Utilización, horas facturables, cartera vencida, casos activos, rendimiento por abogado. Cada reporte es una odisea manual.', impact:'Tiempo del socio director en reportes: 1-2 días al mes. Con dashboards automatizados, son 30 minutos.' }
+    },
+    digitalFindings: {
+      'papel': { tag:'crit', tagLabel:'Crítico', title:'El despacho opera con herramientas de hace 20 años', body:'Word, correo y Excel como sistema nervioso. No hay versionado, no hay trazabilidad, no hay forma de saber quién vio qué contrato.', impact:'Riesgo demostrable: 1 de cada 5 contratos tiene errores de versión o cláusulas que un socio no vio.' },
+      'software-legal': { tag:'warn', tagLabel:'Atención', title:'Tienen software pero no lo están usando bien', body:'Clio, Legalio, Suma u otro — pagaron la licencia, configuraron lo básico, y el 40% de las funcionalidades avanzadas no se usan.', impact:'Tasa típica de adopción profunda: 25-40%. Subir al 70% captura el ROI que ya pagaron.' },
+      'mixto': { tag:'warn', tagLabel:'Atención', title:'El software no cubre todo, y lo que falta es crítico', body:'La mezcla genera islas de información. El dato se pierde en la frontera entre el sistema y el escritorio del abogado.', impact:'Estimación: 15-25% del tiempo del abogado senior se va en tareas administrativas automatizables.' },
+      'avanzado': { tag:'ok', tagLabel:'Bien', title:'Buen nivel de tech base', body:'Su stack está maduro. El cuello de botella probablemente está en la integración entre sistemas o en algo específico que el software no cubre.', impact:'Oportunidad: lo que falta suele ser orquestación inteligente (IA aplicada).' }
+    }
+  },
+  comercio: {
+    nombre: 'Comercio / Retail', badge: 'COMERCIO',
+    procesoLabel: '¿Qué proceso te está pegando más al bolsillo?',
+    procesos: [
+      { v:'inventario', t:'📦 Control de inventario y mermas', badge:'+ común' },
+      { v:'compras-proveedor', t:'🤝 Compras a proveedores y negociación' },
+      { v:'cobranza', t:'💸 Cobranza y cuentas por cobrar (si vendes a crédito)' },
+      { v:'atencion-cliente', t:'💬 Atención al cliente y post-venta' },
+      { v:'precios', t:'💲 Estrategia de precios y promociones' },
+      { v:'logistica', t:'🚚 Logística, entregas y devoluciones' },
+      { v:'marketing', t:'📣 Marketing y captura de clientes nuevos' },
+      { v:'reportes', t:'📊 Reportes financieros y de ventas' },
+      { v:'otro', t:'Otro (lo describo más adelante)' }
+    ],
+    tamanoLabel: '¿Cuántas personas trabajan en el negocio?',
+    tamanoOpc: [
+      { v:'micro', t:'1 – 3 personas (tienda familiar, changarro)' },
+      { v:'pyme', t:'4 – 15 personas (negocio establecido)' },
+      { v:'mediana', t:'16 – 50 personas (varias sucursales)' },
+      { v:'grande', t:'51 – 200 personas (cadena regional)' },
+      { v:'corporativo', t:'+ 200 personas (cadena nacional)' }
+    ],
+    digitalLabel: '¿Cómo llevas hoy el control del negocio?',
+    digitalOpc: [
+      { v:'papel', t:'📝 Libreta, Excel, y memoria del dueño', badge:'+ común' },
+      { v:'pos', t:'💳 Punto de venta (Square, Clip, MercadoPago)' },
+      { v:'ecommerce', t:'🛒 Tienda online (Shopify, WooCommerce, MercadoLibre)' },
+      { v:'avanzado', t:'🚀 ERP + e-commerce + integraciones' }
+    ],
+    costoLabel: '¿Cuánto te cuesta ese cuello de botella al año?',
+    costoHint: 'Incluye producto perdido, tiempo del dueño, ventas que se escaparon, descuentos innecesarios, devoluciones.',
+    procMap: {
+      'inventario': { title:'No sabes qué tienes, dónde, ni cuánto te falta', body:'Compras de más, ventas perdidas por falta de stock, mermas que nadie detecta hasta el cierre del mes.', impact:'Mermas típicas: 3-8% del inventario. Reducirlas a la mitad con mejor control es ganancia directa al margen.' },
+      'compras-proveedor': { title:'Compras reactivas, sin datos, sin poder de negociación', body:'Compras cuando se acaba, no cuando conviene. Sin histórico de consumo, sin análisis de proveedores.', impact:'Ahorro demostrable: 4-12% en costo de producto + 30-50% menos en fletes express por urgencias.' },
+      'cobranza': { title:'Vendes a crédito y cobras cuando puedes', body:'Si vendes a crédito, sin políticas claras y sin seguimiento, los clientes pagan tarde "porque pueden".', impact:'DSO típico en comercio a crédito: 45-90 días. Reducir 30% libera capital.' },
+      'atencion-cliente': { title:'El dueño es el centro de todo y se está quemando', body:'WhatsApp, llamadas, mensajes en redes, todo cae en el mismo lugar.', impact:'Horas del dueño/s en atención: 3-6 horas/día. Automatizar 50% libera tiempo para crecer.' },
+      'precios': { title:'Pones precios "a ojo" o siguiendo al de la esquina', body:'Sin análisis de margen real, sin elasticidad, sin entender qué tanto puedes subir antes de perder clientes.', impact:'Mejora de margen típica con precios basados en datos: 3-7 puntos porcentuales. Sin vender más.' },
+      'logistica': { title:'Las entregas son un desastre silencioso', body:'Tarde, mal, devueltas, clientes quejándose, rutas que no optimizas.', impact:'Costo logístico típicamente mal optimizado: 15-25% del flete se puede ahorrar.' },
+      'marketing': { title:'Gastas en marketing sin saber qué funciona', body:'Volantes, Facebook ads, promociones, sin medir qué trae clientes y qué no.', impact:'CAC mal optimizado: 30-50% del gasto se va en canales que no convierten.' },
+      'reportes': { title:'No sabes si el mes fue bueno o malo hasta que ya pasó', body:'Si te preguntas "¿cómo vamos este mes?" y la respuesta requiere hacer cuentas en un cuaderno.', impact:'Tiempo del dueño en conciliar números: 1-3 días al mes.' }
+    },
+    digitalFindings: {
+      'papel': { tag:'crit', tagLabel:'Crítico', title:'El dueño es la base de datos del negocio', body:'Si tú no estás, el negocio no opera como debería. Es la situación más común y la más peligrosa.', impact:'Riesgo: 100% del conocimiento vive en una cabeza. El costo de oportunidad es el techo de crecimiento del negocio.' },
+      'pos': { tag:'warn', tagLabel:'Atención', title:'Tienes ventas digitalizadas pero el resto sigue manual', body:'El punto de venta te da un reporte diario de ventas, pero el resto sigue en Excel o en la cabeza.', impact:'Datos típicos que se pierden: 30-50% de las decisiones de compra se toman sin ver margen real.' },
+      'ecommerce': { tag:'warn', tagLabel:'Atención', title:'Vendes online pero no integras con operación física', body:'Si vendes en Shopify o MercadoLibre pero tu inventario real está en otra libreta, vas a sobre-vender.', impact:'Tasa de over-selling típica sin integración: 5-15% de los pedidos.' },
+      'avanzado': { tag:'ok', tagLabel:'Bien', title:'Buen nivel de tech base', body:'Tu stack está bien armado. El cuello de botella probablemente está en algo específico que la herramienta no hace.', impact:'Oportunidad: normalmente lo que falta es inteligencia más que más datos.' }
+    }
+  }
+};
+
+function startDiag(vertical){
+  go('diag');
+  setTimeout(() => {
+    const card = document.querySelector(`.vs-card[data-vertical="${vertical}"]`);
+    if (card) card.click();
+  }, 50);
+}
+
+document.querySelectorAll('#vertical-selector .vs-card').forEach(card => {
+  card.onclick = () => {
+    document.querySelectorAll('#vertical-selector .vs-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.vertical = card.dataset.vertical;
+    state.data = { tamano:null, proceso:null, costo:300000, digital:null, nombre:'', empresa:'', email:'', whatsapp:'', descripcion:'' };
+    state.step = 1;
+    buildDiagForm();
+    document.getElementById('diag-progress').classList.remove('hidden');
+    document.getElementById('diag-form').classList.remove('hidden');
+    setTimeout(() => goStep(1), 50);
+  };
+});
+
+function buildDiagForm(){
+  const V = VERTICALS[state.vertical];
+  const procOpts = V.procesos.map(p => `<div class="opt" data-value="${p.v}"><span class="ico-pip">${p.t.split(' ')[0]}</span><span>${p.t.split(' ').slice(1).join(' ')}</span>${p.badge?`<span class="badge">${p.badge}</span>`:''}</div>`).join('');
+  const tamOpts = V.tamanoOpc.map(p => `<div class="opt" data-value="${p.v}"><span>${p.t}</span></div>`).join('');
+  const digOpts = V.digitalOpc.map(p => `<div class="opt" data-value="${p.v}"><span class="ico-pip">${p.t.split(' ')[0]}</span><span>${p.t.split(' ').slice(1).join(' ')}</span>${p.badge?`<span class="badge">${p.badge}</span>`:''}</div>`).join('');
+  document.getElementById('diag-form').innerHTML = `
+    <div class="step active" data-step="1">
+      <div class="step-num">PASO 02 / 06 · ${V.badge}</div>
+      <h2>${V.procesoLabel}</h2>
+      <p class="help">El que más te quita el sueño, el que más cuesta, el que más retrasa.</p>
+      <div class="opt-list">${procOpts}</div>
+    </div>
+    <div class="step" data-step="2">
+      <div class="step-num">PASO 03 / 06 · ${V.badge}</div>
+      <h2>${V.tamanoLabel}</h2>
+      <p class="help">Incluye administrativos, operativos y subcontratados fijos.</p>
+      <div class="opt-list">${tamOpts}</div>
+    </div>
+    <div class="step" data-step="3">
+      <div class="step-num">PASO 04 / 06 · ${V.badge}</div>
+      <h2>${V.costoLabel}</h2>
+      <p class="help">Un rango honesto. Esto se cruza con tu tamaño y tu vertical.</p>
+      <div class="slider-wrap">
+        <div class="value" id="costo-display">$300,000 MXN</div>
+        <input type="range" id="costo" min="30000" max="20000000" step="10000" value="300000">
+        <div class="scale"><span>$30K</span><span>$300K</span><span>$1M</span><span>$5M</span><span>$20M+</span></div>
+      </div>
+      <p style="margin-top:12px; font-size:12px; color:var(--steel);">💡 ${V.costoHint}</p>
+    </div>
+    <div class="step" data-step="4">
+      <div class="step-num">PASO 05 / 06 · ${V.badge}</div>
+      <h2>${V.digitalLabel}</h2>
+      <p class="help">Necesito entender qué herramientas ya tienes en juego.</p>
+      <div class="opt-list">${digOpts}</div>
+    </div>
+    <div class="step" data-step="5">
+      <div class="step-num">PASO 06 / 06 · ${V.badge}</div>
+      <h2>¿A quién le enviamos el diagnóstico?</h2>
+      <p class="help">Te llega por WhatsApp y email en menos de 1 minuto. Sin spam.</p>
+      <div class="row">
+        <div class="field"><label>Nombre</label><input type="text" name="nombre" required placeholder="Tu nombre"></div>
+        <div class="field"><label>Empresa / Despacho / Negocio</label><input type="text" name="empresa" required placeholder="Constructora X / Despacho Y"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="tu@empresa.com"></div>
+        <div class="field"><label>WhatsApp (con lada)</label><input type="tel" name="whatsapp" required placeholder="+52 221 879 9202"></div>
+      </div>
+      <div class="field">
+        <label>Cuéntanos brevemente el proceso que más te duele (opcional pero útil)</label>
+        <textarea name="descripcion" placeholder="Ej: tardamos 12 días en hacer un presupuesto y muchos ya ni los mandamos..."></textarea>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button type="button" class="btn btn-ghost" id="back" disabled>← Atrás</button>
+      <button type="button" class="btn btn-primary" id="next" disabled>Continuar →</button>
+    </div>
+  `;
+  wireDiagForm();
+}
+
+function wireDiagForm(){
+  const form = document.getElementById('diag-form');
+  form.querySelectorAll('.opt-list').forEach((group, idx) => {
+    const map = ['proceso','tamano','digital'][idx];
+    if (!map) return;
+    group.querySelectorAll('.opt').forEach(opt => {
+      opt.onclick = () => {
+        group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        state.data[map] = opt.dataset.value;
+        validateDiagStep();
+      };
+    });
+  });
+  const slider = form.querySelector('#costo');
+  const sliderDisplay = form.querySelector('#costo-display');
+  if (slider) {
+    slider.oninput = e => {
+      state.data.costo = parseInt(e.target.value);
+      sliderDisplay.textContent = fmt(state.data.costo);
+    };
+    if (sliderDisplay) sliderDisplay.textContent = fmt(state.data.costo || 300000);
+  }
+  ['nombre','empresa','email','whatsapp','descripcion'].forEach(n => {
+    const el = form.querySelector(`[name="${n}"]`);
+    if (el) el.oninput = e => { state.data[n] = e.target.value; validateDiagStep(); };
+  });
+  form.querySelector('#back').onclick = () => { if (state.step > 1) goStep(state.step - 1); else goBackToVerticals(); };
+  form.querySelector('#next').onclick = () => {
+    if (state.step < 5) goStep(state.step + 1);
+    else generateDiag();
+  };
+  validateDiagStep();
+}
+
+function goBackToVerticals(){
+  state.step = 1;
+  state.vertical = null;
+  state.data = {};
+  document.getElementById('diag-form').innerHTML = '';
+  document.getElementById('diag-form').classList.add('hidden');
+  document.getElementById('diag-progress').classList.add('hidden');
+  document.getElementById('diag-result').innerHTML = '';
+  document.querySelectorAll('#vertical-selector .vs-card').forEach(c => c.classList.remove('selected'));
+}
+
+function goStep(step){
+  state.step = step;
+  const form = document.getElementById('diag-form');
+  form.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+  form.querySelector(`.step[data-step="${step}"]`).classList.add('active');
+  document.querySelectorAll('#diag-progress .pip').forEach((p,i) => {
+    p.classList.remove('done','current');
+    if (i+1 < step) p.classList.add('done');
+    if (i+1 === step) p.classList.add('current');
+  });
+  const back = form.querySelector('#back');
+  const next = form.querySelector('#next');
+  if (back) back.disabled = (step === 1);
+  if (next) next.textContent = step === 5 ? 'Generar diagnóstico →' : 'Continuar →';
+  validateDiagStep();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function validateDiagStep(){
+  const s = state.step;
+  const d = state.data;
+  let ok = false;
+  if (s === 1) ok = !!d.proceso;
+  else if (s === 2) ok = !!d.tamano;
+  else if (s === 3) ok = d.costo > 0;
+  else if (s === 4) ok = !!d.digital;
+  else if (s === 5) ok = d.nombre && d.empresa && d.email && d.whatsapp;
+  const next = document.querySelector('#diag-form #next');
+  if (next) next.disabled = !ok;
+}
+
+function fmt(n){ return '$' + (n||0).toLocaleString('es-MX') + ' MXN'; }
+
+function generateDiag(){
+  const V = VERTICALS[state.vertical];
+  const d = state.data;
+  const sizeMult = { micro:0.6, pyme:0.85, mediana:1.0, grande:1.15, corporativo:1.3, individual:0.6, pequeno:0.85, mediano:1.0 };
+  const digitalMult = { papel:1.3, erp:0.7, mixto:1.0, avanzado:0.5, 'software-legal':0.7, pos:0.85, ecommerce:0.9 };
+  const baseCost = d.costo;
+  const potentialSavings = Math.round(baseCost * 1.0 * (sizeMult[d.tamano]||1.0) * (digitalMult[d.digital]||1.0) * 0.42);
+  const conservativeSavings = Math.round(potentialSavings * 0.6);
+
+  const findings = [];
+  const df = V.digitalFindings[d.digital];
+  if (df) findings.push(df);
+  const pf = V.procMap[d.proceso];
+  if (pf) findings.unshift({ tag:'crit', tagLabel:'Crítico', title:pf.title, body:pf.body, impact:pf.impact });
+  if (['micro','pyme','individual','pequeno'].includes(d.tamano)) {
+    findings.push({ tag:'warn', tagLabel:'Oportunidad', title:'Una sola persona o pocas son dueñas de este proceso', body:'En tu tamaño, probablemente el dueño del proceso es una persona saturada. No escala y es el principal riesgo.', impact:'Riesgo de bus factor: si esa persona falta 1-2 semanas, el proceso se detiene o degrada visiblemente.' });
+  }
+
+  let verdictTitulo, verdictCuerpo, aiDecision;
+  const procV = d.proceso;
+  const needsAI = (d.digital === 'papel' && ['presupuesto','revision-contratos','litigio','investigacion','tiempo-facturable','inventario','cobranza-honorarios'].includes(procV))
+                 || (d.digital === 'mixto' && ['presupuesto','revision-contratos','cobranza-honorarios','reportes-socios','inventario','reportes'].includes(procV))
+                 || (d.digital === 'avanzado' && ['reportes-socios','reportes','cobranza-honorarios','gestion-equipo'].includes(procV))
+                 || (d.digital === 'pos' && ['inventario','atencion-cliente','marketing'].includes(procV))
+                 || (d.digital === 'ecommerce' && ['inventario','atencion-cliente','logistica'].includes(procV));
+  const hasSoftware = ['erp','software-legal','pos','ecommerce','avanzado'].includes(d.digital);
+
+  if (needsAI && state.vertical === 'derecho' && procV === 'revision-contratos') {
+    verdictTitulo = 'La solución óptima es un MVP con IA especializado en revisión de contratos.';
+    verdictCuerpo = `Tu caso es candidato ideal para nuestro MVP: tenés volumen (decenas de contratos/mes), tenés tipología repetible (cláusulas estándar automatizables) y tenés margen enorme (liberar a socios senior de revisión de primera línea). Lo que te toma 4 horas, al LLM le toma 60 segundos.`;
+    aiDecision = 'Requiere IA · MVP disponible';
+  } else if (needsAI) {
+    verdictTitulo = 'La solución óptima combina IA con rediseño del proceso.';
+    verdictCuerpo = `El proceso que describes es candidato natural a un MVP con IA: hay volumen, hay datos (o se pueden capturar rápido) y la IA puede hacer en minutos lo que hoy toma días.`;
+    aiDecision = 'Requiere IA';
+  } else if (hasSoftware && d.digital !== 'avanzado') {
+    verdictTitulo = 'Antes de IA: optimizar lo que ya tienes.';
+    verdictCuerpo = `Tu nivel de digitalización sugiere que el cuello de botella es de configuración, adopción o subprocesos manuales sobre tu stack actual. Una intervención de 4-6 semanas puede destrabar el proceso sin IA nueva.`;
+    aiDecision = 'Sin IA · Optimización';
+  } else if (d.digital === 'papel') {
+    verdictTitulo = 'Antes de IA: digitalizar la captura.';
+    verdictCuerpo = `Tu operación está en etapa de captura manual. Saltar directo a IA es costoso y el ROI se diluye. Recomendamos digitalizar primero, capturar datos limpios durante 60-90 días.`;
+    aiDecision = 'Sin IA · Digitalizar primero';
+  } else {
+    verdictTitulo = 'Una intervención mixta: rediseño + herramientas ligeras.';
+    verdictCuerpo = `Tu nivel mixto permite una intervención quirúrgica: rediseñar el subproceso crítico y agregar herramientas puntuales.`;
+    aiDecision = 'Mixto · Rediseño + Tools';
+  }
+
+  const today = new Date().toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' });
+  const findingsHtml = findings.map(f => `
+    <div class="finding">
+      <div class="finding-head"><span class="finding-tag ${f.tag}">${f.tagLabel}</span></div>
+      <h3>${f.title}</h3>
+      <p>${f.body}</p>
+      <div class="impact">${f.impact}</div>
+    </div>
+  `).join('');
+
+  const mvpHtml = (state.vertical === 'derecho' && procV === 'revision-contratos') ? `
+    <div class="mvp-cta">
+      <div class="ico">⚡</div>
+      <div style="flex:1">
+        <h3>Tenemos un MVP listo para tu caso</h3>
+        <p>Pega un contrato ahora y mira cómo lo analiza en 60 segundos. Sin registro, sin instalar nada.</p>
+        <a class="btn" href="revisor.html">Probar el MVP de contratos →</a>
+      </div>
+    </div>
+  ` : '';
+
+  const resultEl = document.getElementById('diag-result');
+  resultEl.innerHTML = `
+    <div class="result-head">
+      <div class="label">Diagnóstico Yaxz · ${V.badge} · ${today}</div>
+      <h2>${d.empresa}: ${findings.length} oportunidades detectadas en ${V.nombre.toLowerCase()}.</h2>
+      <div class="big">${fmt(conservativeSavings)}<small>Rango conservador–optimista: ${fmt(conservativeSavings)} a ${fmt(potentialSavings)} al año</small></div>
+      <p style="opacity:0.7; font-size:12px; margin-top:6px;">Basado en benchmarks de ${V.nombre.toLowerCase()} en México.</p>
+    </div>
+    ${findingsHtml}
+    ${mvpHtml}
+    <div class="verdict">
+      <div class="label">Recomendación Yaxz</div>
+      <h3>${verdictTitulo}</h3>
+      <p>${verdictCuerpo}</p>
+      <span class="ai-decision">${aiDecision}</span>
+    </div>
+    <div class="cta-block">
+      <h3>El siguiente paso es una llamada de 30 minutos.</h3>
+      <p>Revisamos tu diagnóstico, validamos el número de ahorro y, si hay fit, arrancamos un MVP en 2 a 4 semanas.</p>
+      <button class="btn" onclick="window.open('https://wa.me/522218799202?text=Hola%20Tristan%2C%20acabo%20de%20hacer%20el%20diagn%C3%B3stico%20Yaxz%20(${encodeURIComponent(V.badge)})%20y%20quiero%20agendar%20la%20llamada', '_blank')">Agendar por WhatsApp →</button>
+    </div>
+    <div class="footer-note">Diagnóstico generado por Yaxz Systems · ${V.badge} · Diagnóstico preliminar, no sustituye auditoría in-situ.</div>
+  `;
+  resultEl.scrollIntoView({behavior:'smooth', block:'start'});
+  
+  const leadPayload = {
+    vertical: state.vertical,
+    nombre: d.nombre,
+    empresa: d.empresa,
+    email: d.email,
+    whatsapp: d.whatsapp,
+    proceso: d.proceso,
+    tamano: d.tamano,
+    costo: d.costo,
+    digital: d.digital,
+    descripcion: d.descripcion || "",
+    conservativeSavings: conservativeSavings,
+    potentialSavings: potentialSavings,
+    findings: findings,
+    verdict: { titulo: verdictTitulo, aiDecision: aiDecision }
+  };
+  
+  try { 
+    localStorage.setItem('yaxz-lead', JSON.stringify({ ...leadPayload, timestamp: new Date().toISOString() })); 
+  } catch(e) {}
+
+  fetch(`${API_BASE}/api/leads`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(leadPayload)
+  })
+  .then(r => r.json())
+  .then(data => console.log('[Yaxz] Lead guardado en la base de datos:', data))
+  .catch(err => console.error('[Yaxz] Error al guardar lead:', err));
+}
+
+go('landing');
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿CONTRATO DE PRESTACIÓN DE SERVICIOS DE CONSULTORÍA TECNOLÓGICA
+
+Contrato de prestación de servicios de consultoría tecnológica (en adelante, el "Contrato") que celebran, por una parte, Corporativo Innova S.A. de C.V. (en adelante, el "CLIENTE"), y por la otra parte, Sistemas Operativos de México S.A. de C.V. (en adelante, el "PROVEEDOR"), al tenor de las siguientes Declaraciones y Cláusulas:
+
+DECLARACIONES
+
+I. Declara el CLIENTE que es una sociedad debidamente constituida bajo las leyes mexicanas y que cuenta con facultades suficientes para celebrar el presente Contrato.
+II. Declara el PROVEEDOR que cuenta con los recursos humanos, técnicos y económicos necesarios para obligarse bajo los términos de este instrumento.
+
+CLÁUSULAS
+
+PRIMERA. OBJETO.
+El PROVEEDOR se obliga a prestar al CLIENTE los servicios de diseño, desarrollo e implementación de soluciones de inteligencia artificial aplicada y automatización de procesos operativos (en adelante, los "Servicios"), de conformidad con las especificaciones acordadas por las partes.
+
+SEGUNDA. ENTREGABLES.
+El PROVEEDOR entregará reportes mensuales de avance y el código fuente correspondiente a las herramientas desarrolladas, a más tardar el último día hábil de cada mes.
+
+TERCERA. CONTRAPRESTACIÓN Y FORMA DE PAGO.
+El CLIENTE pagará al PROVEEDOR la cantidad mensual de ,000.00 M.N. (Ochenta mil pesos 00/100 Moneda Nacional) más el Impuesto al Valor Agregado (IVA). Las facturas emitidas por el PROVEEDOR serán liquidadas por el CLIENTE dentro de un plazo de 90 (noventa) días naturales posteriores a la recepción y validación de la factura correspondiente.
+
+CUARTA. PROPIEDAD INTELECTUAL.
+Todos los desarrollos, códigos, algoritmos, diseños y documentación generada con motivo de la prestación de los Servicios serán propiedad exclusiva del CLIENTE desde el momento de su creación. El PROVEEDOR cede de manera irrevocable y definitiva la totalidad de los derechos patrimoniales de propiedad intelectual al CLIENTE, con independencia de que el CLIENTE haya liquidado o no las facturas pendientes de pago por concepto de dichos Servicios.
+
+QUINTA. LÍMITE DE RESPONSABILIDAD.
+El PROVEEDOR asume la responsabilidad total e ilimitada por cualesquiera daños directos, indirectos, incidentales, punitivos o consecuenciales que el CLIENTE pudiera sufrir con motivo de fallos, errores o retrasos en los desarrollos entregados. El PROVEEDOR se obliga a indemnizar y sacar en paz y a salvo al CLIENTE sin límite económico alguno.
+
+SEXTA. EXCLUSIVIDAD.
+El PROVEEDOR no podrá prestar servicios similares, directa o indirectamente, a ninguna otra persona física o moral que opere en el sector de la tecnología, el comercio minorista, o la logística en territorio mexicano, por un periodo de 2 (dos) años contados a partir de la firma del presente Contrato.
+
+SÉPTIMA. RESCISIÓN Y TERMINACIÓN ANTICIPADA.
+El CLIENTE podrá rescindir o dar por terminado de manera anticipada el presente Contrato en cualquier momento, sin necesidad de declaración judicial y sin incurrir en responsabilidad alguna, mediante notificación por escrito entregada con 5 (cinco) días hábiles de anticipación. En caso de que el PROVEEDOR desee dar por terminado el Contrato de manera anticipada, deberá notificarlo al CLIENTE por escrito con al menos 90 (noventa) días de anticipación.
+
+OCTAVA. LEYES APLICABLES Y JURISDICCIÓN.
+Para la interpretación y cumplimiento del presente Contrato, las partes se someten expresamente a las leyes aplicables y a la jurisdicción de los tribunales competentes de la ciudad de Houston, Texas, Estados Unidos de América, renunciando a cualquier otro fuero que pudiera corresponderles en razón de sus domicilios presentes o futuros.
+
+Leído que fue el presente instrumento por las partes, lo firman en duplicado en la Ciudad de México, el 8 de julio de 2026.
+
+___________________________            ___________________________
+Corporativo Innova S.A. de C.V.        Sistemas Operativos de México S.A. de C.V.
+Representante: Ing. Carlos Slim        Representante: Ing. Tristán Zamora
+CLIENTE                                PROVEEDOR
