@@ -53,17 +53,17 @@
 
   /* LANDING */
   .view { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .hero { padding: 80px 0 60px; }
+  .hero { padding: 100px 0 80px; background: #0B0B0C; color: #FFFFFF; border-bottom: 1px solid #1E293B; }
   .hero-inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; align-items: center; }
-  .eyebrow { display: inline-block; font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(255,92,40,0.08); padding: 6px 12px; border-radius: 99px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
-  h1 { font-size: 60px; line-height: 1.0; letter-spacing: -2.5px; margin-bottom: 24px; }
+  .eyebrow { display: inline-block; font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(0,102,255,0.15); padding: 6px 12px; border-radius: 99px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+  h1 { font-size: 60px; line-height: 1.0; letter-spacing: -2.5px; margin-bottom: 24px; color: #FFFFFF; }
   h1 em { font-style: normal; color: var(--accent); }
-  .hero p.lede { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin-bottom: 32px; max-width: 560px; }
+  .hero p.lede { font-size: 19px; line-height: 1.5; color: #94A3B8; margin-bottom: 32px; max-width: 560px; }
   .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
   .hero-trust { display: flex; gap: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--steel); margin-top: 24px; flex-wrap: wrap; }
   .hero-trust span::before { content: '✓ '; color: var(--accent); font-weight: 700; }
-  .hero-card { background: var(--ink); color: white; padding: 32px; border-radius: 16px; }
-  .hero-card .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  .hero-card { background: #121214; color: white; padding: 32px; border-radius: 16px; border: 1px solid #1E293B; }
+  .hero-card .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
   .hero-card h3 { color: white; font-size: 18px; margin-bottom: 16px; }
   .hero-card .big { font-family: 'JetBrains Mono', monospace; font-size: 44px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -2px; }
   .hero-card .big small { display: block; font-size: 12px; color: rgba(255,255,255,0.65); font-weight: 400; margin-top: 8px; letter-spacing: 0; font-family: 'Inter', sans-serif; }
@@ -175,11 +175,11 @@
   .mvp-cta p { font-size: 13px; color: rgba(10,14,26,0.75); margin-bottom: 10px; }
   .mvp-cta .btn { background: var(--ink); color: white; }
   .mvp-cta .btn:hover { background: var(--accent); }
-  .cta-block { background: var(--accent); color: white; padding: 28px; border-radius: 16px; text-align: center; margin-top: 16px; }
-  .cta-block h3 { font-size: 20px; margin-bottom: 6px; }
-  .cta-block p { margin-bottom: 18px; opacity: 0.95; font-size: 14px; }
-  .cta-block .btn { background: white; color: var(--ink); }
-  .cta-block .btn:hover { background: var(--ink); color: white; }
+  .cta-block { background: #0B0B0C; color: white; padding: 48px 32px; border-radius: 16px; text-align: center; margin-top: 16px; border: 1px solid #1E293B; }
+  .cta-block h3 { font-size: 28px; letter-spacing: -1px; margin-bottom: 12px; color: #FFFFFF; }
+  .cta-block p { margin-bottom: 24px; color: #94A3B8; font-size: 15px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .cta-block .btn { background: var(--accent); color: white; }
+  .cta-block .btn:hover { background: white; color: #0B0B0C; }
 
   .footer-note { text-align: center; margin-top: 32px; font-size: 11px; color: var(--steel); font-family: 'JetBrains Mono', monospace; }
 
@@ -194,15 +194,51 @@
   .about-card h3 { font-size: 18px; margin-bottom: 8px; letter-spacing: -0.3px; }
   .about-card p { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
 
-  /* Proceso */
-  .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-  @media (max-width: 1100px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .process-grid { grid-template-columns: 1fr; } }
-  .process-step { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 20px; position: relative; }
-  .process-step .step-num { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 8px; }
-  .process-step h4 { font-size: 16px; letter-spacing: 1px; margin-bottom: 4px; }
-  .process-step .step-dur { font-size: 11px; color: var(--steel); text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
-  .process-step p { color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+  /* TIMELINE SECTION */
+  .timeline-section { background: #0B0B0C; color: #FFFFFF; padding: 100px 0; border-top: 1px solid #1E293B; border-bottom: 1px solid #1E293B; }
+  .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; margin-top: 48px; }
+  .timeline-line-container { position: absolute; top: 30px; left: 12.5%; right: 12.5%; height: 2px; z-index: 1; pointer-events: none; }
+  .timeline-line { position: relative; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); }
+  .timeline-line-active { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--accent); transition: width 0.5s ease; }
+  .timeline-item { position: relative; z-index: 3; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .timeline-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    background: #121214;
+    border: 2px solid #1E293B;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+  .timeline-item:hover .timeline-num {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+    transform: scale(1.1);
+  }
+  .timeline-item h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #FFFFFF; }
+  .timeline-item p { font-size: 13px; color: #94A3B8; line-height: 1.5; max-width: 240px; }
+  .timeline-days {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--steel);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  @media (max-width: 900px) {
+    .timeline-grid { grid-template-columns: 1fr; gap: 48px; }
+    .timeline-line-container { display: none; }
+    .timeline-item { text-align: left; align-items: flex-start; flex-direction: row; gap: 20px; }
+    .timeline-num { margin-bottom: 0; flex-shrink: 0; }
+    .timeline-item p { max-width: 100%; }
+  }
 
   /* Casos */
   .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -316,7 +352,7 @@
           <p class="lede">Para constructoras, despachos legales y comercios en México. Diagnóstico estructurado en 3 minutos, MVPs con IA accionables, mantenimiento continuo.</p>
           <div class="hero-ctas">
             <button class="btn btn-accent btn-lg" onclick="go('diag')">Hacer diagnóstico gratis →</button>
-            <a class="btn btn-ghost btn-lg" href="revisor.html">Probar el MVP de contratos</a>
+            <button class="btn btn-ghost btn-lg" style="color:#94A3B8; border-color:#1E293B;" onclick="document.getElementById('proceso').scrollIntoView({behavior:'smooth'})">Ver el proceso →</button>
           </div>
           <div class="hero-trust">
             <span>Sin instalar nada</span>
@@ -349,17 +385,23 @@
       <div class="services">
         <div class="services-grid">
           <div class="service" onclick="startDiag('construccion')">
-            <div class="ico">🏗️</div>
+            <div class="ico">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V10l8-6 8 6v10M10 20v-6h4v6"/></svg>
+            </div>
             <h3>Construcción / Obras</h3>
             <p>Constructoras, desarrolladoras, contratistas, proveedores de obra civil.</p>
           </div>
           <div class="service" onclick="startDiag('derecho')">
-            <div class="ico">⚖️</div>
+            <div class="ico">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
             <h3>Derecho / Legal</h3>
             <p>Despachos de abogados, litigio, corporativo, fiscal. Cualquier tamaño.</p>
           </div>
           <div class="service" onclick="startDiag('comercio')">
-            <div class="ico">🛒</div>
+            <div class="ico">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
             <h3>Comercio / Retail</h3>
             <p>Tiendas, e-commerce, mayoristas, franquicias. Desde changarros hasta cadenas.</p>
           </div>
@@ -405,53 +447,50 @@
     </div>
   </section>
 
-  <!-- PROCESO YAXZ -->
-  <section class="section section-alt" id="proceso">
+  <!-- PROCESO YAXZ — TIMELINE -->
+  <section class="timeline-section" id="proceso">
     <div class="view">
-      <div class="section-head">
-        <span class="eyebrow">El proceso</span>
-        <h2>5 fases. 90 días. Un resultado medible.</h2>
-        <p>Cada proyecto sigue la misma secuencia. La diferencia es la profundidad, no el método.</p>
+      <div class="section-head" style="color:#FFFFFF;">
+        <span class="eyebrow">El único camino</span>
+        <h2 style="color:#FFFFFF; font-size:40px; letter-spacing:-1.5px;">Un proceso. Cuatro pasos.<br>Sin atajos.</h2>
+        <p style="color:#94A3B8;">Cada proyecto sigue la misma secuencia. Primero entendemos, luego proponemos, luego construimos. El mantenimiento no es opcional.</p>
       </div>
-      <div class="process-grid">
-        <div class="process-step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <h4>SCAN</h4>
-            <p class="step-dur">2-3 semanas</p>
-            <p>Discovery remoto + inmersión en sitio. Entrevistas a 8-12 personas clave, observación directa, análisis cuantitativo. Entregable: Reporte ejecutivo con 8-15 páginas y base de datos de hallazgos.</p>
+      <div class="timeline-grid">
+        <div class="timeline-line-container">
+          <div class="timeline-line">
+            <div class="timeline-line-active" id="timeline-progress"></div>
           </div>
         </div>
-        <div class="process-step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <h4>MAP</h4>
-            <p class="step-dur">1-2 semanas</p>
-            <p>Modelado TO-BE del proceso objetivo. Gap analysis. Decisión tecnológica explícita: ¿digitalizar primero, automatizar, IA, o integración? Caso de negocio del MVP con ROI conservador y optimista.</p>
+        <div class="timeline-item">
+          <div class="timeline-num">01</div>
+          <div>
+            <div class="timeline-days">Días 1 – 15</div>
+            <h4>Diagnóstico</h4>
+            <p>Mapeamos tu operación actual (AS-IS), identificamos los cuellos de botella y calculamos el ROI antes de escribir una línea de código.</p>
           </div>
         </div>
-        <div class="process-step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <h4>DESIGN</h4>
-            <p class="step-dur">2-3 semanas</p>
-            <p>Spec funcional con historias de usuario. Spec técnica con stack, arquitectura, integraciones. Plan de releases en 2-3 sprints. Métricas de éxito operativas y de negocio.</p>
+        <div class="timeline-item">
+          <div class="timeline-num">02</div>
+          <div>
+            <div class="timeline-days">Días 16 – 25</div>
+            <h4>Propuesta Técnica</h4>
+            <p>Especificación funcional y arquitectura del MVP. Definimos el stack, los sprints y las métricas de éxito que vamos a rendir al cliente.</p>
           </div>
         </div>
-        <div class="process-step">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <h4>DEPLOY</h4>
-            <p class="step-dur">2-4 semanas</p>
-            <p>Implementación incremental. Sprint 1: setup técnico. Sprint 2: release 1 con 3-5 early adopters. Sprint 3: release 2 con 10-20% de usuarios. Sprint 4: release 3 al 100%, capacitación, handover.</p>
+        <div class="timeline-item">
+          <div class="timeline-num">03</div>
+          <div>
+            <div class="timeline-days">Días 26 – 75</div>
+            <h4>Desarrollo MVP</h4>
+            <p>Construimos e implementamos en producción. Sprints de 2 semanas con demos reales. El cliente usa el producto antes de que termine el proyecto.</p>
           </div>
         </div>
-        <div class="process-step">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <h4>SUSTAIN</h4>
-            <p class="step-dur">Continuo (mín 6 meses)</p>
-            <p>Monitoreo semanal. Reunión mensual con sponsor. Release de mejora trimestral. Re-diagnóstico semestral. Esto es donde se captura el ROI de verdad.</p>
+        <div class="timeline-item">
+          <div class="timeline-num">04</div>
+          <div>
+            <div class="timeline-days">Mes 3 en adelante</div>
+            <h4>Partner Recurrente</h4>
+            <p>Monitoreo, mejoras y nuevos módulos. La relación continúa. El ROI se captura en esta fase, no antes.</p>
           </div>
         </div>
       </div>
@@ -555,21 +594,22 @@
 
 
   <!-- CTA FINAL -->
-  <section class="section">
+  <section style="padding: 80px 0; background: #0B0B0C;">
     <div class="view">
       <div class="cta-block">
-        <h3>¿Listo para ver dónde se te está yendo el dinero?</h3>
-        <p>El primer paso es un diagnóstico gratuito de 30 minutos por WhatsApp. Sin compromiso. Salimos de la llamada con un mapa claro de dónde está tu cuello de botella más caro.</p>
-        <a class="btn btn-accent btn-lg" href="https://wa.me/525649504535?text=Hola%20Trist%C3%A1n%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratis" target="_blank" rel="noopener">Agendar diagnóstico gratis →</a>
-        <p class="cta-foot">+52 56 4950 4535 · tristan@yaxz.systems · Respuesta en menos de 4 horas hábiles</p>
+        <p class="eyebrow" style="margin-bottom:24px;">Paso 1 del proceso</p>
+        <h3>La sesión de diagnóstico.<br>30 minutos. Sin costo.</h3>
+        <p>Salimos de la llamada con un mapa claro de tu cuello de botella más caro y una recomendación honesta: si hay fit, te decimos cómo arrancamos. Si no, te recomendamos a alguien mejor.</p>
+        <a class="btn btn-accent btn-lg" href="https://wa.me/525649504535?text=Hola%20Trist%C3%A1n%2C%20quiero%20agendar%20mi%20diagn%C3%B3stico%20de%2030%20minutos" target="_blank" rel="noopener" style="font-size:17px; padding: 18px 36px;">Agendar ahora por WhatsApp →</a>
+        <p class="cta-foot" style="margin-top:20px; color:#64748B; font-family:'JetBrains Mono',monospace; font-size:12px;">+52 56 4950 4535 · tristan@yaxz.systems · Respuesta en menos de 4 horas hábiles</p>
       </div>
     </div>
   </section>
 
-  <footer class="footer-note" style="padding: 32px 24px; border-top: 1px solid var(--line); margin-top: 0;">
-    <div style="margin-bottom: 8px;"><strong>Yaxz Systems</strong> · Tristán Zamora</div>
-    <div><a href="https://wa.me/525649504535" target="_blank" rel="noopener">+52 56 4950 4535</a> · <a href="mailto:tristan@yaxz.systems">tristan@yaxz.systems</a></div>
-    <div style="margin-top: 12px; opacity: 0.6;">© 2026 Yaxz Systems · Hecho en México con criterio e IA</div>
+  <footer style="padding: 32px 24px; border-top: 1px solid #1E293B; background: #0B0B0C; text-align:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:#475569;">
+    <div style="margin-bottom: 8px; color:#94A3B8;"><strong style="color:#FFFFFF;">Yaxz Systems</strong> · Tristán Zamora</div>
+    <div><a href="https://wa.me/525649504535" target="_blank" rel="noopener" style="color:#94A3B8;">+52 56 4950 4535</a> · <a href="mailto:tristan@yaxz.systems" style="color:#94A3B8;">tristan@yaxz.systems</a></div>
+    <div style="margin-top: 12px; opacity: 0.5;">© 2026 Yaxz Systems · Hecho en México con criterio e IA</div>
   </footer>
 </main>
 
@@ -625,6 +665,22 @@ function go(view){
   document.getElementById(VIEWS[view]).classList.remove('hidden');
   window.scrollTo({top:0, behavior:'instant'});
 }
+
+// Timeline progress animation on scroll
+document.addEventListener('DOMContentLoaded', () => {
+  const progressBar = document.getElementById('timeline-progress');
+  if (progressBar) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          progressBar.style.width = '100%';
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(document.getElementById('proceso'));
+  }
+});
+
 
 const VERTICALS = {
   construccion: {
