@@ -78,6 +78,6 @@ Backend FastAPI + Frontend HTML en Light Mode. Procesa contratos en PDF, Word y 
 
 Tristán Zamora
 tristan@yaxz.systems
-+52 221 879 9202
++52 56 4950 4535
 
 Yaxz Systems · 2026

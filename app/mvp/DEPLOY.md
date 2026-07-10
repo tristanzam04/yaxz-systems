@@ -213,5 +213,5 @@ Abre `https://tu-proyecto.web.app` y:
 ## 📞 Contacto
 
 Tristán Zamora
-tristan@svc.consulting
-+52 221 879 9202
+tristan@yaxz.systems
++52 56 4950 4535

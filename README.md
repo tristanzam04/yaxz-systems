@@ -90,4 +90,4 @@ Hemos configurado comandos automáticos iguales a los de **TGS App** para facili
 ## 📞 Soporte e Información
 Desarrollado por **Tristán Zamora**.
 *   **Email:** tristan@yaxz.systems
-*   **Teléfono:** +52 221 879 9202
+*   **Teléfono:** +52 56 4950 4535
