@@ -1,0 +1,15 @@
+{
+  "name": "yaxz-systems",
+  "version": "1.0.0",
+  "description": "Repositorio para Yaxz Systems - Revisor de Contratos con IA",
+  "private": true,
+  "scripts": {
+    "sync:pull": "git pull origin main --rebase --autostash -Xours -v",
+    "sync:fix": "git reset --hard HEAD && git clean -fd && git pull origin main",
+    "sync:debug": "node -v && npm -v && git status && git remote -v",
+    "sync:push": "git add . && git commit -m \"YAXZ-SYSTEMS: Sincronización automática de cambios\" & git push origin main",
+    "install-all": "python -m pip install -r app/mvp/backend/requirements.txt",
+    "dev": "python app/mvp/backend/main.py",
+    "deploy": "cd app/mvp && firebase deploy"
+  }
+}
