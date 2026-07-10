@@ -32,3 +32,16 @@ $RECYCLE.BIN/
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+pip-log.txt
+pip-delete-this-directory.txt
+
