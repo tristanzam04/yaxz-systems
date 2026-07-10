@@ -9,7 +9,8 @@
     "sync:debug": "node -v && npm -v && git status && git remote -v",
     "sync:push": "git add . && git commit -m \"YAXZ-SYSTEMS: Sincronización automática de cambios\" & git push origin main",
     "install-all": "python -m pip install -r app/mvp/backend/requirements.txt",
-    "dev": "python app/mvp/backend/main.py",
+    "dev": "npm run sync:pull && python app/mvp/backend/main.py",
+    "done": "npm run sync:push",
     "deploy": "cd app/mvp && firebase deploy"
   }
 }

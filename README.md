@@ -73,9 +73,10 @@ PORT=8000
 Hemos configurado comandos automáticos iguales a los de **TGS App** para facilitarte la vida. Ejecútalos desde la carpeta raíz del proyecto:
 
 ### 🟢 Para el Desarrollo Diario:
-*   `npm run dev`: Inicia el servidor del backend en FastAPI y monta automáticamente la interfaz del frontend en el puerto `http://localhost:8000`.
+*   `npm run dev`: Realiza un `git pull` automático para descargar lo último de GitHub y luego inicia el servidor en [http://localhost:8000](http://localhost:8000).
+*   `npm run done`: Agrega todos tus cambios, hace un commit automático y lo sube directamente a GitHub (`git push`).
 
-### 🔄 Para Sincronizar con GitHub:
+### 🔄 Para Sincronizar con GitHub (Manual):
 *   `npm run sync:pull`: Descarga los últimos cambios del repositorio de manera segura sin sobreescribir tus commits locales.
 *   `npm run sync:push`: Agrega tus cambios locales, hace un commit automático y los sube a GitHub al instante.
 *   `npm run sync:fix`: Limpia cualquier conflicto de archivos local y descarga la versión limpia directamente de GitHub.
